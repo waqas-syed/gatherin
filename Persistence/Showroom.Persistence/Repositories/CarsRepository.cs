@@ -1,11 +1,10 @@
-﻿using MongoDB.Bson;
+﻿using System.Collections.Generic;
+using Gatherin.Domain.Model;
+using Gatherin.Persistence.DatabasePipeline;
+using MongoDB.Bson;
 using MongoDB.Driver;
-using Showroom.Domain.Model;
-using Showroom.Persistence.DatabasePipeline;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Showroom.Persistence.Repositories
+namespace Gatherin.Persistence.Repositories
 {
     public class CarsRepository : ICarRepository
     {

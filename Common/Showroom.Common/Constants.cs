@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
-namespace Showroom.Common
+namespace Gatherin.Common
 {
     /// <summary>
     /// Contains constants that are used in multiple places

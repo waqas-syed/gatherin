@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Showroom.Persistence.Repositories
+namespace Gatherin.Persistence.Repositories
 {
     /// <summary>
     /// Interface for repository of any type

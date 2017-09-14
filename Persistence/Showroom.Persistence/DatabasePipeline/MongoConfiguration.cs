@@ -1,9 +1,7 @@
-﻿using MongoDB.Bson.Serialization;
+﻿using Gatherin.Common;
 using MongoDB.Driver;
-using Showroom.Common;
-using Showroom.Domain.Model;
 
-namespace Showroom.Persistence.DatabasePipeline
+namespace Gatherin.Persistence.DatabasePipeline
 {
     /// <summary>
     /// Configuration Initializer for MongoDB

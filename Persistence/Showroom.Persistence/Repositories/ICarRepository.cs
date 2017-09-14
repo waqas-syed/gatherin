@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Showroom.Domain.Model;
+﻿using System.Collections.Generic;
+using Gatherin.Domain.Model;
 
-namespace Showroom.Persistence.Repositories
+namespace Gatherin.Persistence.Repositories
 {
     /// <summary>
     /// Specific operations related to cars

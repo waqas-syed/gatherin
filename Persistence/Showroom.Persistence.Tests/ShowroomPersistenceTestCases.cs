@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Gatherin.Common;
+using Gatherin.Domain.Model;
+using Gatherin.Persistence.DatabasePipeline;
+using Gatherin.Persistence.Ninject;
+using Gatherin.Persistence.Repositories;
 using Ninject;
 using NUnit.Framework;
-using Showroom.Common;
-using Showroom.Domain.Model;
-using Showroom.Persistence.DatabasePipeline;
-using Showroom.Persistence.Ninject;
-using Showroom.Persistence.Repositories;
 
-namespace Showroom.Persistence.Tests
+namespace Gatherin.Persistence.Tests
 {
     [TestFixture]
     public class ShowroomPersistenceTestCases

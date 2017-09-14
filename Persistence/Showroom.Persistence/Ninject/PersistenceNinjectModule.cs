@@ -1,10 +1,8 @@
-﻿using Ninject.Modules;
-using Ninject.Web.Common;
-using Showroom.Domain.Model;
-using Showroom.Persistence.DatabasePipeline;
-using Showroom.Persistence.Repositories;
+﻿using Gatherin.Persistence.DatabasePipeline;
+using Gatherin.Persistence.Repositories;
+using Ninject.Modules;
 
-namespace Showroom.Persistence.Ninject
+namespace Gatherin.Persistence.Ninject
 {
     /// <summary>
     /// Declares the dependencies for the Persistence Module

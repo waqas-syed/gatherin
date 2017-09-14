@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Showroom.Domain.Model
+namespace Gatherin.Domain.Model
 {
     public class Car
     {

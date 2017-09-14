@@ -1,7 +1,7 @@
-﻿using MongoDB.Bson.Serialization;
-using Showroom.Domain.Model;
+﻿using Gatherin.Domain.Model;
+using MongoDB.Bson.Serialization;
 
-namespace Showroom.Persistence.DatabasePipeline
+namespace Gatherin.Persistence.DatabasePipeline
 {
     /// <summary>
     /// Maps the Entity classes to BSON and specifies important attributes

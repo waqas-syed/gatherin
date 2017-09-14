@@ -1,9 +1,10 @@
 ﻿namespace Gatherin.Services
 {
     /// <summary>
-    /// Service to handle the workflow for the Cars
+    /// ICarService
     /// </summary>
-    public class CarService
+    public interface ICarService
     {
+        void AddNewCar();
     }
 }

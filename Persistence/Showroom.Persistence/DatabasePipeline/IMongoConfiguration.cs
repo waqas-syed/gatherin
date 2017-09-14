@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 
-namespace Showroom.Persistence.DatabasePipeline
+namespace Gatherin.Persistence.DatabasePipeline
 {
     /// <summary>
     /// Configuration for MongoDB
