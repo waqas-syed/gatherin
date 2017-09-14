@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Showroom.Domain.Model
 {
@@ -11,6 +7,21 @@ namespace Showroom.Domain.Model
         private string _id = Guid.NewGuid().ToString();
 
         public Car(string name, string company, string modelYear, string ownerEmail)
+        {
+            Name = name;
+            Company = company;
+            ModelYear = modelYear;
+            OwnerEmail = ownerEmail;
+        }
+
+        /// <summary>
+        /// Update the car with new values
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="company"></param>
+        /// <param name="modelYear"></param>
+        /// <param name="ownerEmail"></param>
+        public void UpdateCar(string name, string company, string modelYear, string ownerEmail)
         {
             Name = name;
             Company = company;

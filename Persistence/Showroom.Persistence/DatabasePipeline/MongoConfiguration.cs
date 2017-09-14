@@ -18,23 +18,13 @@ namespace Showroom.Persistence.DatabasePipeline
         /// </summary>
         public MongoConfiguration()
         {
-            _mongoClient = new MongoClient(Constants.MongoServer);
-            _mongoDatabase = _mongoClient.GetDatabase(Constants.MongoDatabase);
-            Initialize();
-        }
-
-        /// <summary>
-        /// Initialize the MongoDB configuration
-        /// </summary>
-        public void Initialize()
-        {
-            BsonClassMap.RegisterClassMap<Car>(cm =>
+            if (_mongoClient == null)
             {
-                cm.AutoMap();
-                cm.MapIdMember(c => c.Id);//.SetIdGenerator(CombGuidGenerator.Instance);
-            });
+                _mongoClient = new MongoClient(Constants.MongoServer);
+                _mongoDatabase = _mongoClient.GetDatabase(Constants.MongoDatabase);
+            }
         }
-
+        
         /// <summary>
         /// Mongo Database
         /// </summary>

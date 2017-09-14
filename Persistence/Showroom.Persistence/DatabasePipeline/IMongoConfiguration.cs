@@ -8,11 +8,6 @@ namespace Showroom.Persistence.DatabasePipeline
     public interface IMongoConfiguration
     {
         /// <summary>
-        /// Initialize the configuration and connect the required wires
-        /// </summary>
-        void Initialize();
-
-        /// <summary>
         /// Get the Mongo Client
         /// </summary>
         MongoClient MongoClient { get; }

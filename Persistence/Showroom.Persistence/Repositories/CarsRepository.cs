@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Showroom.Persistence.Repositories
 {
-    public class CarsRepository : IRepository<Car>
+    public class CarsRepository : ICarRepository
     {
         private IMongoCollection<Car> _mongoCollection;
 
@@ -71,6 +71,17 @@ namespace Showroom.Persistence.Repositories
         public IList<Car> GetAllInstances()
         {
             return _mongoCollection.Find(new BsonDocument()).ToList();
+        }
+
+        /// <summary>
+        /// Get all the cars by their owner's email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public IList<Car> GetAllCarByEmail(string email)
+        {
+            var filter = Builders<Car>.Filter.Eq("OwnerEmail", email);
+            return _mongoCollection.Find(filter).ToList();
         }
     }
 }

@@ -16,8 +16,8 @@ namespace Showroom.Persistence.Ninject
         /// </summary>
         public override void Load()
         {
-            Bind<IMongoConfiguration>().To<MongoConfiguration>().InRequestScope();
-            Bind<IRepository<Car>>().To<CarsRepository>().InTransientScope();
+            Bind<IMongoConfiguration>().To<MongoConfiguration>().InSingletonScope();
+            Bind<ICarRepository>().To<CarsRepository>().InTransientScope();
         }
     }
 }
