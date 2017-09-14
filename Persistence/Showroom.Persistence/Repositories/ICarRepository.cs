@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Gatherin.Domain.Model;
+using Gatherin.Domain.Model.GatherinAggregate;
 
 namespace Gatherin.Persistence.Repositories
 {
     /// <summary>
     /// Specific operations related to cars
     /// </summary>
-    public interface ICarRepository : IRepository<Car>
+    public interface ICarRepository : IRepository<Gathering>
     {
-        IList<Car> GetAllCarByEmail(string email);
+        IList<Gathering> GetAllCarByEmail(string email);
     }
 }

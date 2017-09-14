@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D34B3A22-C64C-40C5-B49A-93B51646CE40}</ProjectGuid>
+    <ProjectGuid>{BD6824D5-76F2-4C25-9EEA-F723C9AB7DAB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gatherin.Common</RootNamespace>
-    <AssemblyName>Gatherin.Common</AssemblyName>
+    <RootNamespace>Gatherin.Domain.Model.Tests</RootNamespace>
+    <AssemblyName>Gatherin.Domain.Model.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,8 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,9 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assertion.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="GatheringTestCases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Showroom.Common\Gatherin.Common.csproj">
+      <Project>{d34b3a22-c64c-40c5-b49a-93b51646ce40}</Project>
+      <Name>Gatherin.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Showroom.Domain.Model\Gatherin.Domain.Model.csproj">
+      <Project>{8ce0fc6f-ac46-4f08-81c4-8fd6d3d0c9ae}</Project>
+      <Name>Gatherin.Domain.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

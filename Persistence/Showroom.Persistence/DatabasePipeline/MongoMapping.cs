@@ -1,4 +1,5 @@
 ﻿using Gatherin.Domain.Model;
+using Gatherin.Domain.Model.GatherinAggregate;
 using MongoDB.Bson.Serialization;
 
 namespace Gatherin.Persistence.DatabasePipeline
@@ -17,7 +18,7 @@ namespace Gatherin.Persistence.DatabasePipeline
         {
             if (!_areMappingsRegistered)
             {
-                BsonClassMap.RegisterClassMap<Car>(cm =>
+                BsonClassMap.RegisterClassMap<Gathering>(cm =>
                 {
                     cm.AutoMap();
                     cm.MapIdMember(c => c.Id); //.SetIdGenerator(CombGuidGenerator.Instance);

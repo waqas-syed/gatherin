@@ -1,5 +1,6 @@
 ﻿using Gatherin.Common;
 using Gatherin.Domain.Model;
+using Gatherin.Domain.Model.GatherinAggregate;
 using Gatherin.Persistence.DatabasePipeline;
 using Gatherin.Persistence.Ninject;
 using Gatherin.Persistence.Repositories;
@@ -45,16 +46,16 @@ namespace Gatherin.Persistence.Tests
             string company = "Mercedes";
             string modelYear = "2017";
             string ownerEmail = "mercedes@123456-7.com";
-            Car car = new Car(name, company, modelYear, ownerEmail);
+            Gathering car = new Gathering(name, company, modelYear, ownerEmail);
             carRepository.Add(car);
 
             // Retrieve the car
             var retrievedCar = carRepository.GetInstance(car.Id);
             Assert.IsNotNull(retrievedCar);
-            Assert.AreEqual(name, retrievedCar.Name);
-            Assert.AreEqual(company, retrievedCar.Company);
-            Assert.AreEqual(modelYear, retrievedCar.ModelYear);
-            Assert.AreEqual(ownerEmail, retrievedCar.OwnerEmail);
+            Assert.AreEqual(name, retrievedCar.Title);
+            Assert.AreEqual(company, retrievedCar.Description);
+            Assert.AreEqual(modelYear, retrievedCar.DateOfMeeting);
+            Assert.AreEqual(ownerEmail, retrievedCar.OrganizerEmail);
         }
 
         [Test]
@@ -68,16 +69,16 @@ namespace Gatherin.Persistence.Tests
             string company = "Mercedes";
             string modelYear = "2017";
             string ownerEmail = "mercedes@123456-7.com";
-            Car car = new Car(name, company, modelYear, ownerEmail);
+            Gathering car = new Gathering(name, company, modelYear, ownerEmail);
             carRepository.Add(car);
 
             // Retrieve the car
             var retrievedCar = carRepository.GetInstance(car.Id);
             Assert.IsNotNull(retrievedCar);
-            Assert.AreEqual(name, retrievedCar.Name);
-            Assert.AreEqual(company, retrievedCar.Company);
-            Assert.AreEqual(modelYear, retrievedCar.ModelYear);
-            Assert.AreEqual(ownerEmail, retrievedCar.OwnerEmail);
+            Assert.AreEqual(name, retrievedCar.Title);
+            Assert.AreEqual(company, retrievedCar.Description);
+            Assert.AreEqual(modelYear, retrievedCar.DateOfMeeting);
+            Assert.AreEqual(ownerEmail, retrievedCar.OrganizerEmail);
 
             // Prepare some data to update
             string name2 = "SL 501";
@@ -93,10 +94,10 @@ namespace Gatherin.Persistence.Tests
             // Retrieve the car one more time
             retrievedCar = carRepository.GetInstance(car.Id);
             Assert.IsNotNull(retrievedCar);
-            Assert.AreEqual(name2, retrievedCar.Name);
-            Assert.AreEqual(company2, retrievedCar.Company);
-            Assert.AreEqual(modelYear2, retrievedCar.ModelYear);
-            Assert.AreEqual(ownerEmail2, retrievedCar.OwnerEmail);
+            Assert.AreEqual(name2, retrievedCar.Title);
+            Assert.AreEqual(company2, retrievedCar.Description);
+            Assert.AreEqual(modelYear2, retrievedCar.DateOfMeeting);
+            Assert.AreEqual(ownerEmail2, retrievedCar.OrganizerEmail);
         }
 
         [Test]
@@ -110,16 +111,16 @@ namespace Gatherin.Persistence.Tests
             string company = "Mercedes";
             string modelYear = "2017";
             string ownerEmail = "mercedes@123456-7.com";
-            Car car = new Car(name, company, modelYear, ownerEmail);
+            Gathering car = new Gathering(name, company, modelYear, ownerEmail);
             carRepository.Add(car);
 
             // Retrieve the car
             var retrievedCar = carRepository.GetInstance(car.Id);
             Assert.IsNotNull(retrievedCar);
-            Assert.AreEqual(name, retrievedCar.Name);
-            Assert.AreEqual(company, retrievedCar.Company);
-            Assert.AreEqual(modelYear, retrievedCar.ModelYear);
-            Assert.AreEqual(ownerEmail, retrievedCar.OwnerEmail);
+            Assert.AreEqual(name, retrievedCar.Title);
+            Assert.AreEqual(company, retrievedCar.Description);
+            Assert.AreEqual(modelYear, retrievedCar.DateOfMeeting);
+            Assert.AreEqual(ownerEmail, retrievedCar.OrganizerEmail);
 
             // Prepare some data to update
             string name2 = "SL 501";
@@ -135,10 +136,10 @@ namespace Gatherin.Persistence.Tests
             // Retrieve the car one more time
             retrievedCar = carRepository.GetInstance(car.Id);
             Assert.IsNotNull(retrievedCar);
-            Assert.AreEqual(name2, retrievedCar.Name);
-            Assert.AreEqual(company2, retrievedCar.Company);
-            Assert.AreEqual(modelYear2, retrievedCar.ModelYear);
-            Assert.AreEqual(ownerEmail2, retrievedCar.OwnerEmail);
+            Assert.AreEqual(name2, retrievedCar.Title);
+            Assert.AreEqual(company2, retrievedCar.Description);
+            Assert.AreEqual(modelYear2, retrievedCar.DateOfMeeting);
+            Assert.AreEqual(ownerEmail2, retrievedCar.OrganizerEmail);
 
             // Delete the car
             var deleteResult = carRepository.Delete(car.Id);
@@ -160,7 +161,7 @@ namespace Gatherin.Persistence.Tests
             string company = "Mercedes";
             string modelYear = "2014";
             string ownerEmail = "mercedes@123456-7.com";
-            Car car = new Car(name, company, modelYear, ownerEmail);
+            Gathering car = new Gathering(name, company, modelYear, ownerEmail);
             carRepository.Add(car);
 
             // Car # 2
@@ -168,7 +169,7 @@ namespace Gatherin.Persistence.Tests
             string company2 = "Mercedes 2";
             string modelYear2 = "2016";
             string ownerEmail2 = "mercedes2@123456-7.com";
-            Car car2 = new Car(name2, company2, modelYear2, ownerEmail2);
+            Gathering car2 = new Gathering(name2, company2, modelYear2, ownerEmail2);
             carRepository.Add(car2);
 
             // Car # 3
@@ -176,7 +177,7 @@ namespace Gatherin.Persistence.Tests
             string company3 = "Mercedes 3";
             string modelYear3 = "2017";
             string ownerEmail3 = "mercedes3@123456-7.com";
-            Car car3 = new Car(name3, company3, modelYear3, ownerEmail3);
+            Gathering car3 = new Gathering(name3, company3, modelYear3, ownerEmail3);
             carRepository.Add(car3);
 
             // Car # 4
@@ -184,7 +185,7 @@ namespace Gatherin.Persistence.Tests
             string company4 = "Mercedes 4";
             string modelYear4 = "2016";
             string ownerEmail4 = "mercedes4@123456-7.com";
-            Car car4 = new Car(name4, company4, modelYear4, ownerEmail4);
+            Gathering car4 = new Gathering(name4, company4, modelYear4, ownerEmail4);
             carRepository.Add(car4);
 
             // Retrieve the cars
@@ -192,28 +193,28 @@ namespace Gatherin.Persistence.Tests
             Assert.IsNotNull(retrievedCar);
             // Verify Car # 1
             Assert.AreEqual(4, retrievedCar.Count);
-            Assert.AreEqual(name, retrievedCar[0].Name);
-            Assert.AreEqual(company, retrievedCar[0].Company);
-            Assert.AreEqual(modelYear, retrievedCar[0].ModelYear);
-            Assert.AreEqual(ownerEmail, retrievedCar[0].OwnerEmail);
+            Assert.AreEqual(name, retrievedCar[0].Title);
+            Assert.AreEqual(company, retrievedCar[0].Description);
+            Assert.AreEqual(modelYear, retrievedCar[0].DateOfMeeting);
+            Assert.AreEqual(ownerEmail, retrievedCar[0].OrganizerEmail);
 
             // Verify Car # 2
-            Assert.AreEqual(name2, retrievedCar[1].Name);
-            Assert.AreEqual(company2, retrievedCar[1].Company);
-            Assert.AreEqual(modelYear2, retrievedCar[1].ModelYear);
-            Assert.AreEqual(ownerEmail2, retrievedCar[1].OwnerEmail);
+            Assert.AreEqual(name2, retrievedCar[1].Title);
+            Assert.AreEqual(company2, retrievedCar[1].Description);
+            Assert.AreEqual(modelYear2, retrievedCar[1].DateOfMeeting);
+            Assert.AreEqual(ownerEmail2, retrievedCar[1].OrganizerEmail);
 
             // Verify Car # 3
-            Assert.AreEqual(name3, retrievedCar[2].Name);
-            Assert.AreEqual(company3, retrievedCar[2].Company);
-            Assert.AreEqual(modelYear3, retrievedCar[2].ModelYear);
-            Assert.AreEqual(ownerEmail3, retrievedCar[2].OwnerEmail);
+            Assert.AreEqual(name3, retrievedCar[2].Title);
+            Assert.AreEqual(company3, retrievedCar[2].Description);
+            Assert.AreEqual(modelYear3, retrievedCar[2].DateOfMeeting);
+            Assert.AreEqual(ownerEmail3, retrievedCar[2].OrganizerEmail);
 
             // Verify Car # 4
-            Assert.AreEqual(name4, retrievedCar[3].Name);
-            Assert.AreEqual(company4, retrievedCar[3].Company);
-            Assert.AreEqual(modelYear4, retrievedCar[3].ModelYear);
-            Assert.AreEqual(ownerEmail4, retrievedCar[3].OwnerEmail);
+            Assert.AreEqual(name4, retrievedCar[3].Title);
+            Assert.AreEqual(company4, retrievedCar[3].Description);
+            Assert.AreEqual(modelYear4, retrievedCar[3].DateOfMeeting);
+            Assert.AreEqual(ownerEmail4, retrievedCar[3].OrganizerEmail);
         }
 
         [Test]
@@ -228,7 +229,7 @@ namespace Gatherin.Persistence.Tests
             string company = "Mercedes";
             string modelYear = "2014";
             string ownerEmail = "mercedes@123456-7.com";
-            Car car = new Car(name, company, modelYear, ownerEmail);
+            Gathering car = new Gathering(name, company, modelYear, ownerEmail);
             carRepository.Add(car);
 
             // Car # 2
@@ -236,7 +237,7 @@ namespace Gatherin.Persistence.Tests
             string company2 = "Mercedes 2";
             string modelYear2 = "2016";
             string ownerEmail2 = "mercedes@123456-7.com";
-            Car car2 = new Car(name2, company2, modelYear2, ownerEmail2);
+            Gathering car2 = new Gathering(name2, company2, modelYear2, ownerEmail2);
             carRepository.Add(car2);
 
             // Car # 3
@@ -244,7 +245,7 @@ namespace Gatherin.Persistence.Tests
             string company3 = "Mercedes 3";
             string modelYear3 = "2017";
             string ownerEmail3 = "mercedes3@123456-7.com";
-            Car car3 = new Car(name3, company3, modelYear3, ownerEmail3);
+            Gathering car3 = new Gathering(name3, company3, modelYear3, ownerEmail3);
             carRepository.Add(car3);
 
             // Car # 4
@@ -252,7 +253,7 @@ namespace Gatherin.Persistence.Tests
             string company4 = "Mercedes 4";
             string modelYear4 = "2016";
             string ownerEmail4 = "mercedes@123456-7.com";
-            Car car4 = new Car(name4, company4, modelYear4, ownerEmail4);
+            Gathering car4 = new Gathering(name4, company4, modelYear4, ownerEmail4);
             carRepository.Add(car4);
 
             // Retrieve the cars by the email that is saved with 3 cars out of the above 4
@@ -260,22 +261,22 @@ namespace Gatherin.Persistence.Tests
             Assert.IsNotNull(retrievedCar);
             // Verify Car # 1
             Assert.AreEqual(3, retrievedCar.Count);
-            Assert.AreEqual(name, retrievedCar[0].Name);
-            Assert.AreEqual(company, retrievedCar[0].Company);
-            Assert.AreEqual(modelYear, retrievedCar[0].ModelYear);
-            Assert.AreEqual(ownerEmail, retrievedCar[0].OwnerEmail);
+            Assert.AreEqual(name, retrievedCar[0].Title);
+            Assert.AreEqual(company, retrievedCar[0].Description);
+            Assert.AreEqual(modelYear, retrievedCar[0].DateOfMeeting);
+            Assert.AreEqual(ownerEmail, retrievedCar[0].OrganizerEmail);
 
             // Verify Car # 2
-            Assert.AreEqual(name2, retrievedCar[1].Name);
-            Assert.AreEqual(company2, retrievedCar[1].Company);
-            Assert.AreEqual(modelYear2, retrievedCar[1].ModelYear);
-            Assert.AreEqual(ownerEmail2, retrievedCar[1].OwnerEmail);
+            Assert.AreEqual(name2, retrievedCar[1].Title);
+            Assert.AreEqual(company2, retrievedCar[1].Description);
+            Assert.AreEqual(modelYear2, retrievedCar[1].DateOfMeeting);
+            Assert.AreEqual(ownerEmail2, retrievedCar[1].OrganizerEmail);
 
             // Verify Car # 4
-            Assert.AreEqual(name4, retrievedCar[2].Name);
-            Assert.AreEqual(company4, retrievedCar[2].Company);
-            Assert.AreEqual(modelYear4, retrievedCar[2].ModelYear);
-            Assert.AreEqual(ownerEmail4, retrievedCar[2].OwnerEmail);
+            Assert.AreEqual(name4, retrievedCar[2].Title);
+            Assert.AreEqual(company4, retrievedCar[2].Description);
+            Assert.AreEqual(modelYear4, retrievedCar[2].DateOfMeeting);
+            Assert.AreEqual(ownerEmail4, retrievedCar[2].OrganizerEmail);
         }
     }
 }

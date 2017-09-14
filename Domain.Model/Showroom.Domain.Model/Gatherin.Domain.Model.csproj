@@ -40,8 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Car.cs" />
+    <Compile Include="GatherinAggregate\Gathering.cs" />
+    <Compile Include="GatherinAggregate\Location.cs" />
+    <Compile Include="GatherinAggregate\MaritalStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Showroom.Common\Gatherin.Common.csproj">
+      <Project>{d34b3a22-c64c-40c5-b49a-93b51646ce40}</Project>
+      <Name>Gatherin.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

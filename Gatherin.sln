@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gatherin.Persistence.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gatherin.Presentation", "Presentation\Gatherin.Presentation\Gatherin.Presentation.csproj", "{DBEDC3B4-CC59-488D-8B97-E612AE38947D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gatherin.Domain.Model.Tests", "Domain.Model\Gatherin.Domain.Model.Tests\Gatherin.Domain.Model.Tests.csproj", "{BD6824D5-76F2-4C25-9EEA-F723C9AB7DAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{DBEDC3B4-CC59-488D-8B97-E612AE38947D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBEDC3B4-CC59-488D-8B97-E612AE38947D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBEDC3B4-CC59-488D-8B97-E612AE38947D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD6824D5-76F2-4C25-9EEA-F723C9AB7DAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD6824D5-76F2-4C25-9EEA-F723C9AB7DAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD6824D5-76F2-4C25-9EEA-F723C9AB7DAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD6824D5-76F2-4C25-9EEA-F723C9AB7DAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,5 +72,6 @@ Global
 		{9C3B2C8F-A017-45AA-A2D5-435EAF6F8D4A} = {41CF896C-E39F-4DCC-9E18-247E9A2BD454}
 		{1C6DEBB2-4034-4C14-A49E-1D3AA40197BC} = {91517CE6-CC37-48CD-84CA-AEB025F434C4}
 		{DBEDC3B4-CC59-488D-8B97-E612AE38947D} = {601AA160-65B2-45FF-AB46-887B964A0203}
+		{BD6824D5-76F2-4C25-9EEA-F723C9AB7DAB} = {99CE6BF4-783B-4357-AE9F-74CB1D7DAF20}
 	EndGlobalSection
 EndGlobal
