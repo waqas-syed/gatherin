@@ -1,10 +1,14 @@
-﻿namespace Gatherin.Domain.Model.GatherinAggregate
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace Gatherin.Domain.Model.GatherinAggregate
 {
     /// <summary>
     /// Person who is attending the meeting
     /// </summary>
     public class Attendee
     {
+        //private IList<string> _gifts = new List<string>();
         public Attendee(string fullName, string email)
         {
             FullName = fullName;
@@ -13,5 +17,6 @@
 
         public string FullName { get; set; }
         public string Email { get; set; }
+        //public IList<string> Gifts = new List<string>();
     }
 }

@@ -103,6 +103,18 @@ namespace Gatherin.Persistence.Repositories
 
             var updateResult = _mongoCollection.FindOneAndUpdate(filter, update);
             return true;
+
+            // Sample code if the Attendees array had another array
+            /*var gift1 = "Night Gown";
+            var gift2 = "Sword";
+            var query2 = Builders<Gathering>.Filter.And(
+                Builders<Gathering>.Filter.Eq(x => x.Id, gatheringId),
+                Builders<Gathering>.Filter.Eq("Attendees.FullName", "Khaleesi"));
+            var update2 = Builders<Gathering>.Update.Push("Attendees.$.Gifts", gift1);
+            _mongoCollection.FindOneAndUpdate(query2, update2);
+            var update3 = Builders<Gathering>.Update.Push("Attendees.$.Gifts", gift2);
+            _mongoCollection.FindOneAndUpdate(query2, update3);
+            */
         }
     }
 }
