@@ -89,5 +89,20 @@ namespace Gatherin.Persistence.Repositories
             var filter = Builders<Gathering>.Filter.Eq(x => x.OrganizerEmail, email);
             return _mongoCollection.Find(filter).ToList();
         }
+
+        /// <summary>
+        /// Add a new attendee to the list of attendees who will attend the meeting
+        /// </summary>
+        /// <param name="gatheringId"></param>
+        /// <param name="attendee"></param>
+        /// <returns></returns>
+        public bool AddNewAttendeeToList(string gatheringId, Attendee attendee)
+        {
+            var filter = Builders<Gathering>.Filter.Eq(x => x.Id, gatheringId);
+            var update = Builders<Gathering>.Update.Push(x => x.Attendees, attendee);
+
+            var updateResult = _mongoCollection.FindOneAndUpdate(filter, update);
+            return true;
+        }
     }
 }

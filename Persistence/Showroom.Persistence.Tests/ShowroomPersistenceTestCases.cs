@@ -471,5 +471,69 @@ namespace Gatherin.Persistence.Tests
             Assert.AreEqual(isVideoMeeting4, retrievedGatherings[2].IsVideoGathering);
             Assert.IsTrue(string.IsNullOrEmpty(retrievedGatherings[2].VideoCallLink));
         }
+
+        [Test]
+        public void AddNewAttendeeTest_ChecksIfTheANewAttendeeIsAddedAsExpectedToTheDatabase_VerifiesByTheReturnedValue()
+        {
+            // Get the repository to perform operations
+            var gatheringRepository = _kernel.Get<IGatheringRepository>();
+            Assert.IsNotNull(gatheringRepository);
+            string title = "Painters Get Around";
+            string description = "We painters are a different lot";
+            DateTime dateOfMeeting = DateTime.Now.AddDays(9).Date;
+            string organizerEmail = "thisisit@123456789-0.com";
+            string topic = Gathering.AllTopics()[0];
+            Location location = new Location(23.45M, 73.31M, "F-6, Islamabad, Pakistan");
+            string venue = "Chaye Khana";
+            bool isVideoMeeting = false;
+            string videoCallLink = null;
+
+            var gathering = new Gathering.GatheringBuilder().Title(title).Description(description).DateOfMeeting(dateOfMeeting)
+                .OrganizerEmail(organizerEmail).Topic(topic).Location(location).Venue(venue)
+                .IsVideoGathering(isVideoMeeting).VideoCallLink(videoCallLink).Build();
+            gatheringRepository.Add(gathering);
+
+            // Retrieve the Gathering
+            var retrievedGathering = gatheringRepository.GetInstance(gathering.Id);
+            Assert.IsNotNull(retrievedGathering);
+            //Assert.AreEqual(0, retrievedGathering.AttendeesEmails.Count);
+
+            string attendeeName1 = "Khaleesi";
+            string attendeeEmail1 = "daenerys@targareyan123456789-0.com";
+            gatheringRepository.AddNewAttendeeToList(gathering.Id, new Attendee(attendeeName1, attendeeEmail1));
+
+            string attendeeName2 = "Jon Snow";
+            string attendeeEmail2 = "aegon@targareyan123456789-0.com";
+            gatheringRepository.AddNewAttendeeToList(gathering.Id, new Attendee(attendeeName2, attendeeEmail2));
+
+            string attendeeName3 = "Night King";
+            string attendeeEmail3 = "ice@eyes123456789-0.com";
+            gatheringRepository.AddNewAttendeeToList(gathering.Id, new Attendee(attendeeName3, attendeeEmail3));
+
+            string attendeeName4 = "Tormund";
+            string attendeeEmail4 = "tormund@wildling123456789-0.com";
+            gatheringRepository.AddNewAttendeeToList(gathering.Id, new Attendee(attendeeName4, attendeeEmail4));
+
+            // Get the gathering again
+            var retrievedGathering2 = gatheringRepository.GetAllGatheringsByEmail(organizerEmail);
+            Assert.IsNotNull(retrievedGathering2);
+            Assert.AreEqual(4, retrievedGathering2[0].Attendees.Count);
+
+            // Attendee # 1
+            Assert.AreEqual(attendeeName1, retrievedGathering2[0].Attendees[0].FullName);
+            Assert.AreEqual(attendeeEmail1, retrievedGathering2[0].Attendees[0].Email);
+
+            // Attendee # 2
+            Assert.AreEqual(attendeeName2, retrievedGathering2[0].Attendees[1].FullName);
+            Assert.AreEqual(attendeeEmail2, retrievedGathering2[0].Attendees[1].Email);
+
+            // Attendee # 3
+            Assert.AreEqual(attendeeName3, retrievedGathering2[0].Attendees[2].FullName);
+            Assert.AreEqual(attendeeEmail3, retrievedGathering2[0].Attendees[2].Email);
+
+            // Attendee # 4
+            Assert.AreEqual(attendeeName4, retrievedGathering2[0].Attendees[3].FullName);
+            Assert.AreEqual(attendeeEmail4, retrievedGathering2[0].Attendees[3].Email);
+        }
     }
 }

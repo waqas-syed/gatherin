@@ -15,7 +15,7 @@ namespace Gatherin.Domain.Model.GatherinAggregate
         private bool _isVideoGathering;
         private string _videoCallLink;
         private Location _location;
-        private IList<string> _attendeesEmails = new List<string>();
+        private IList<Attendee> _attendees = new List<Attendee>();
 
         /// <summary>
         /// Initialize the gathering with all the elements
@@ -72,11 +72,19 @@ namespace Gatherin.Domain.Model.GatherinAggregate
         /// <summary>
         /// Add a new member to the Gathering
         /// </summary>
-        public void AddNewAttendeeToTheGathering(string email)
+        public void AddNewAttendeeToTheGathering(Attendee attendee)
         {
-            if (!_attendeesEmails.Contains(email))
+            bool attendeeNotAddedAlready = true;
+            foreach (var attendee1 in _attendees)
             {
-                _attendeesEmails.Add(email);
+                if (attendee1.Email.Equals(attendee.Email))
+                {
+                    attendeeNotAddedAlready = false;
+                }
+            }
+            if (attendeeNotAddedAlready)
+            {
+                _attendees.Add(attendee);
             }
         }
 
@@ -213,9 +221,10 @@ namespace Gatherin.Domain.Model.GatherinAggregate
         /// <summary>
         /// lsit of emails for the peope who are attending our event
         /// </summary>
-        public IList<string> AttendeesEmails
+        public IList<Attendee> Attendees
         {
-            get { return _attendeesEmails; } 
+            get { return _attendees; }
+            private set { _attendees = value; }
         }
 
         /// <summary>
