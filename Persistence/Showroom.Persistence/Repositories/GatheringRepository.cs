@@ -105,8 +105,8 @@ namespace Gatherin.Persistence.Repositories
             return true;
 
             // Sample code if the Attendees array had another array
-            /*var gift1 = "Night Gown";
-            var gift2 = "Sword";
+            /*var gift1 = new Gift("Night Gown", 23.89M);
+            var gift2 = new Gift("Sword", 56.09M);
             var query2 = Builders<Gathering>.Filter.And(
                 Builders<Gathering>.Filter.Eq(x => x.Id, gatheringId),
                 Builders<Gathering>.Filter.Eq("Attendees.FullName", "Khaleesi"));
@@ -114,7 +114,7 @@ namespace Gatherin.Persistence.Repositories
             _mongoCollection.FindOneAndUpdate(query2, update2);
             var update3 = Builders<Gathering>.Update.Push("Attendees.$.Gifts", gift2);
             _mongoCollection.FindOneAndUpdate(query2, update3);
-            */
+            return true;*/
         }
     }
 }
