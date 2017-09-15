@@ -63,8 +63,8 @@
     <Compile Include="DatabasePipeline\MongoMapping.cs" />
     <Compile Include="Ninject\PersistenceNinjectModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CarsRepository.cs" />
-    <Compile Include="Repositories\ICarRepository.cs" />
+    <Compile Include="Repositories\GatheringRepository.cs" />
+    <Compile Include="Repositories\IGatheringRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>

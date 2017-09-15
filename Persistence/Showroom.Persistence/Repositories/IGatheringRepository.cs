@@ -7,8 +7,8 @@ namespace Gatherin.Persistence.Repositories
     /// <summary>
     /// Specific operations related to cars
     /// </summary>
-    public interface ICarRepository : IRepository<Gathering>
+    public interface IGatheringRepository : IRepository<Gathering>
     {
-        IList<Gathering> GetAllCarByEmail(string email);
+        IList<Gathering> GetAllGatheringsByEmail(string email);
     }
 }

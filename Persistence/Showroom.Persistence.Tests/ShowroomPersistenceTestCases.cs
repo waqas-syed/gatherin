@@ -1,11 +1,11 @@
 ﻿using Gatherin.Common;
-using Gatherin.Domain.Model;
 using Gatherin.Domain.Model.GatherinAggregate;
 using Gatherin.Persistence.DatabasePipeline;
 using Gatherin.Persistence.Ninject;
 using Gatherin.Persistence.Repositories;
 using Ninject;
 using NUnit.Framework;
+using System;
 
 namespace Gatherin.Persistence.Tests
 {
@@ -36,247 +36,440 @@ namespace Gatherin.Persistence.Tests
         }
         
         [Test]
-        public void AddNewCarTest_ChecksIfTheANewCarIsAddedAsExpectedToTheDatabase_VerifiesByTheReturnedValue()
+        public void AddNewGatheringTest_ChecksIfTheANewGatheringIsAddedAsExpectedToTheDatabase_VerifiesByTheReturnedValue()
         {
             // Get the repository to perform operations
-            var carRepository = _kernel.Get<ICarRepository>();
-            Assert.IsNotNull(carRepository);
-            // Prepare some data to test
-            string name = "SL 500";
-            string company = "Mercedes";
-            string modelYear = "2017";
-            string ownerEmail = "mercedes@123456-7.com";
-            Gathering car = new Gathering(name, company, modelYear, ownerEmail);
-            carRepository.Add(car);
+            var gatheringRepository = _kernel.Get<IGatheringRepository>();
+            Assert.IsNotNull(gatheringRepository);
+            string title = "Painters Get Around";
+            string description = "We painters are a different lot";
+            DateTime dateOfMeeting = DateTime.Now.AddDays(9).Date;
+            string organizerEmail = "thisisit@123456789-0.com";
+            string topic = Gathering.AllTopics()[0];
+            Location location = new Location(23.45M, 73.31M, "F-6, Islamabad, Pakistan");
+            string venue = "Chaye Khana";
+            bool isVideoMeeting = false;
+            string videoCallLink = null;
 
-            // Retrieve the car
-            var retrievedCar = carRepository.GetInstance(car.Id);
-            Assert.IsNotNull(retrievedCar);
-            Assert.AreEqual(name, retrievedCar.Title);
-            Assert.AreEqual(company, retrievedCar.Description);
-            Assert.AreEqual(modelYear, retrievedCar.DateOfMeeting);
-            Assert.AreEqual(ownerEmail, retrievedCar.OrganizerEmail);
+            var gathering = new Gathering.GatheringBuilder().Title(title).Description(description).DateOfMeeting(dateOfMeeting)
+                .OrganizerEmail(organizerEmail).Topic(topic).Location(location).Venue(venue)
+                .IsVideoGathering(isVideoMeeting).VideoCallLink(videoCallLink).Build();
+            gatheringRepository.Add(gathering);
+
+            // Retrieve the Gathering
+            var retrievedGathering = gatheringRepository.GetInstance(gathering.Id);
+            Assert.IsNotNull(retrievedGathering);
+            Assert.AreEqual(title, retrievedGathering.Title);
+            Assert.AreEqual(description, retrievedGathering.Description);
+            Assert.AreEqual(dateOfMeeting, retrievedGathering.DateOfMeeting);
+            Assert.AreEqual(organizerEmail, retrievedGathering.OrganizerEmail);
+            Assert.AreEqual(topic, retrievedGathering.Topic);
+            Assert.IsNotNull(retrievedGathering.Location);
+            Assert.AreEqual(location.Latitude, retrievedGathering.Location.Latitude);
+            Assert.AreEqual(location.Longitude, retrievedGathering.Location.Longitude);
+            Assert.AreEqual(location.Area, retrievedGathering.Location.Area);
+            Assert.AreEqual(venue, retrievedGathering.Venue);
+            Assert.AreEqual(isVideoMeeting, retrievedGathering.IsVideoGathering);
+            Assert.AreEqual(videoCallLink, retrievedGathering.VideoCallLink);
         }
-
+        
         [Test]
-        public void UpdateCarTest_ChecksIfTheANewCarIsAddedAndThenUpdatedAsExpectedToTheDatabase_VerifiesByTheReturnedValue()
+        public void UpdateGatheringTest_ChecksIfTheANewGatheringIsAddedAndThenUpdatedAsExpectedToTheDatabase_VerifiesByTheReturnedValue()
         {
             // Get the repository to perform operations
-            var carRepository = _kernel.Get<ICarRepository>();
-            Assert.IsNotNull(carRepository);
-            // Prepare some data to test
-            string name = "SL 500";
-            string company = "Mercedes";
-            string modelYear = "2017";
-            string ownerEmail = "mercedes@123456-7.com";
-            Gathering car = new Gathering(name, company, modelYear, ownerEmail);
-            carRepository.Add(car);
+            var gatheringRepository = _kernel.Get<IGatheringRepository>();
+            Assert.IsNotNull(gatheringRepository);
+            string title = "Painters Get Around";
+            string description = "We painters are a different lot";
+            DateTime dateOfMeeting = DateTime.Now.AddDays(9).Date;
+            string organizerEmail = "thisisit@123456789-0.com";
+            string topic = Gathering.AllTopics()[0];
+            Location location = new Location(23.45M, 73.31M, "F-6, Islamabad, Pakistan");
+            string venue = "Chaye Khana";
+            bool isVideoMeeting = false;
+            string videoCallLink = null;
 
-            // Retrieve the car
-            var retrievedCar = carRepository.GetInstance(car.Id);
-            Assert.IsNotNull(retrievedCar);
-            Assert.AreEqual(name, retrievedCar.Title);
-            Assert.AreEqual(company, retrievedCar.Description);
-            Assert.AreEqual(modelYear, retrievedCar.DateOfMeeting);
-            Assert.AreEqual(ownerEmail, retrievedCar.OrganizerEmail);
+            var gathering = new Gathering.GatheringBuilder().Title(title).Description(description).DateOfMeeting(dateOfMeeting)
+                .OrganizerEmail(organizerEmail).Topic(topic).Location(location).Venue(venue)
+                .IsVideoGathering(isVideoMeeting).VideoCallLink(videoCallLink).Build();
+            gatheringRepository.Add(gathering);
 
-            // Prepare some data to update
-            string name2 = "SL 501";
-            string company2 = "Mercedes Benz";
-            string modelYear2 = "2016";
-            string ownerEmail2 = "mercedesbenz@123456-7.com";
+            // Retrieve the Gathering
+            var retrievedGathering = gatheringRepository.GetInstance(gathering.Id);
+            Assert.IsNotNull(retrievedGathering);
+            Assert.AreEqual(title, retrievedGathering.Title);
+            Assert.AreEqual(description, retrievedGathering.Description);
+            Assert.AreEqual(dateOfMeeting, retrievedGathering.DateOfMeeting);
+            Assert.AreEqual(organizerEmail, retrievedGathering.OrganizerEmail);
+            Assert.AreEqual(topic, retrievedGathering.Topic);
+            Assert.IsNotNull(retrievedGathering.Location);
+            Assert.AreEqual(location.Latitude, retrievedGathering.Location.Latitude);
+            Assert.AreEqual(location.Longitude, retrievedGathering.Location.Longitude);
+            Assert.AreEqual(location.Area, retrievedGathering.Location.Area);
+            Assert.AreEqual(venue, retrievedGathering.Venue);
+            Assert.AreEqual(isVideoMeeting, retrievedGathering.IsVideoGathering);
+            Assert.AreEqual(videoCallLink, retrievedGathering.VideoCallLink);
 
-            // Update the car
-            car.UpdateCar(name2, company2, modelYear2, ownerEmail2);
-            var updateResult = carRepository.Update(car);
-            Assert.IsTrue(updateResult);
+            string title2 = "Painters Get Around 2";
+            string description2 = "We painters are a different lot 2";
+            DateTime dateOfMeeting2 = DateTime.Now.AddDays(10).Date;
+            string organizerEmail2 = "thisisit@123456789-2.com";
+            string topic2 = Gathering.AllTopics()[1];
+            Location location2 = new Location(23.47M, 73.33M, "F-7, Islamabad, Pakistan");
+            string venue2 = "Attrio Cafe";
+            bool isVideoMeeting2 = false;
+            string videoCallLink2 = null;
 
-            // Retrieve the car one more time
-            retrievedCar = carRepository.GetInstance(car.Id);
-            Assert.IsNotNull(retrievedCar);
-            Assert.AreEqual(name2, retrievedCar.Title);
-            Assert.AreEqual(company2, retrievedCar.Description);
-            Assert.AreEqual(modelYear2, retrievedCar.DateOfMeeting);
-            Assert.AreEqual(ownerEmail2, retrievedCar.OrganizerEmail);
+            retrievedGathering.UpdateCar(title2, description2, dateOfMeeting2, organizerEmail2, topic2, 
+                isVideoMeeting2, videoCallLink2, location2, venue2);
+            gatheringRepository.Update(retrievedGathering);
+
+            // Retrieve the Gathering
+            retrievedGathering = gatheringRepository.GetInstance(gathering.Id);
+            Assert.IsNotNull(retrievedGathering);
+            Assert.AreEqual(title2, retrievedGathering.Title);
+            Assert.AreEqual(description2, retrievedGathering.Description);
+            Assert.AreEqual(dateOfMeeting2, retrievedGathering.DateOfMeeting);
+            Assert.AreEqual(organizerEmail2, retrievedGathering.OrganizerEmail);
+            Assert.AreEqual(topic2, retrievedGathering.Topic);
+            Assert.IsNotNull(retrievedGathering.Location);
+            Assert.AreEqual(location2.Latitude, retrievedGathering.Location.Latitude);
+            Assert.AreEqual(location2.Longitude, retrievedGathering.Location.Longitude);
+            Assert.AreEqual(location2.Area, retrievedGathering.Location.Area);
+            Assert.AreEqual(venue2, retrievedGathering.Venue);
+            Assert.AreEqual(isVideoMeeting2, retrievedGathering.IsVideoGathering);
+            Assert.AreEqual(videoCallLink2, retrievedGathering.VideoCallLink);
         }
-
+        
         [Test]
-        public void DeleteCarTest_ChecksIfTheANewCarIsAddedAndThenDeletedAsExpectedToTheDatabase_VerifiesByTheReturnedValue()
+        public void DeleteGatheringTest_ChecksIfTheANewGatheringIsAddedAndThenDeletedAsExpectedToTheDatabase_VerifiesByTheReturnedValue()
         {
             // Get the repository to perform operations
-            var carRepository = _kernel.Get<ICarRepository>();
-            Assert.IsNotNull(carRepository);
-            // Prepare some data to test
-            string name = "SL 500";
-            string company = "Mercedes";
-            string modelYear = "2017";
-            string ownerEmail = "mercedes@123456-7.com";
-            Gathering car = new Gathering(name, company, modelYear, ownerEmail);
-            carRepository.Add(car);
+            var gatheringRepository = _kernel.Get<IGatheringRepository>();
+            Assert.IsNotNull(gatheringRepository);
+            string title = "Painters Get Around";
+            string description = "We painters are a different lot";
+            DateTime dateOfMeeting = DateTime.Now.AddDays(9).Date;
+            string organizerEmail = "thisisit@123456789-0.com";
+            string topic = Gathering.AllTopics()[0];
+            Location location = new Location(23.45M, 73.31M, "F-6, Islamabad, Pakistan");
+            string venue = "Chaye Khana";
+            bool isVideoMeeting = false;
+            string videoCallLink = null;
 
-            // Retrieve the car
-            var retrievedCar = carRepository.GetInstance(car.Id);
-            Assert.IsNotNull(retrievedCar);
-            Assert.AreEqual(name, retrievedCar.Title);
-            Assert.AreEqual(company, retrievedCar.Description);
-            Assert.AreEqual(modelYear, retrievedCar.DateOfMeeting);
-            Assert.AreEqual(ownerEmail, retrievedCar.OrganizerEmail);
+            var gathering = new Gathering.GatheringBuilder().Title(title).Description(description).DateOfMeeting(dateOfMeeting)
+                .OrganizerEmail(organizerEmail).Topic(topic).Location(location).Venue(venue)
+                .IsVideoGathering(isVideoMeeting).VideoCallLink(videoCallLink).Build();
+            gatheringRepository.Add(gathering);
 
-            // Prepare some data to update
-            string name2 = "SL 501";
-            string company2 = "Mercedes Benz";
-            string modelYear2 = "2016";
-            string ownerEmail2 = "mercedesbenz@123456-7.com";
+            // Retrieve the Gathering
+            var retrievedGathering = gatheringRepository.GetInstance(gathering.Id);
+            Assert.IsNotNull(retrievedGathering);
+            Assert.AreEqual(title, retrievedGathering.Title);
+            Assert.AreEqual(description, retrievedGathering.Description);
+            Assert.AreEqual(dateOfMeeting, retrievedGathering.DateOfMeeting);
+            Assert.AreEqual(organizerEmail, retrievedGathering.OrganizerEmail);
+            Assert.AreEqual(topic, retrievedGathering.Topic);
+            Assert.IsNotNull(retrievedGathering.Location);
+            Assert.AreEqual(location.Latitude, retrievedGathering.Location.Latitude);
+            Assert.AreEqual(location.Longitude, retrievedGathering.Location.Longitude);
+            Assert.AreEqual(location.Area, retrievedGathering.Location.Area);
+            Assert.AreEqual(venue, retrievedGathering.Venue);
+            Assert.AreEqual(isVideoMeeting, retrievedGathering.IsVideoGathering);
+            Assert.AreEqual(videoCallLink, retrievedGathering.VideoCallLink);
 
-            // Update the car
-            car.UpdateCar(name2, company2, modelYear2, ownerEmail2);
-            var updateResult = carRepository.Update(car);
-            Assert.IsTrue(updateResult);
+            string title2 = "Painters Get Around 2";
+            string description2 = "We painters are a different lot 2";
+            DateTime dateOfMeeting2 = DateTime.Now.AddDays(10).Date;
+            string organizerEmail2 = "thisisit@123456789-2.com";
+            string topic2 = Gathering.AllTopics()[1];
+            Location location2 = new Location(23.47M, 73.33M, "F-7, Islamabad, Pakistan");
+            string venue2 = "Attrio Cafe";
+            bool isVideoMeeting2 = false;
+            string videoCallLink2 = null;
 
-            // Retrieve the car one more time
-            retrievedCar = carRepository.GetInstance(car.Id);
-            Assert.IsNotNull(retrievedCar);
-            Assert.AreEqual(name2, retrievedCar.Title);
-            Assert.AreEqual(company2, retrievedCar.Description);
-            Assert.AreEqual(modelYear2, retrievedCar.DateOfMeeting);
-            Assert.AreEqual(ownerEmail2, retrievedCar.OrganizerEmail);
+            retrievedGathering.UpdateCar(title2, description2, dateOfMeeting2, organizerEmail2, topic2,
+                isVideoMeeting2, videoCallLink2, location2, venue2);
+            gatheringRepository.Update(retrievedGathering);
 
-            // Delete the car
-            var deleteResult = carRepository.Delete(car.Id);
+            // Retrieve the Gathering
+            retrievedGathering = gatheringRepository.GetInstance(gathering.Id);
+            Assert.IsNotNull(retrievedGathering);
+            Assert.AreEqual(title2, retrievedGathering.Title);
+            Assert.AreEqual(description2, retrievedGathering.Description);
+            Assert.AreEqual(dateOfMeeting2, retrievedGathering.DateOfMeeting);
+            Assert.AreEqual(organizerEmail2, retrievedGathering.OrganizerEmail);
+            Assert.AreEqual(topic2, retrievedGathering.Topic);
+            Assert.IsNotNull(retrievedGathering.Location);
+            Assert.AreEqual(location2.Latitude, retrievedGathering.Location.Latitude);
+            Assert.AreEqual(location2.Longitude, retrievedGathering.Location.Longitude);
+            Assert.AreEqual(location2.Area, retrievedGathering.Location.Area);
+            Assert.AreEqual(venue2, retrievedGathering.Venue);
+            Assert.AreEqual(isVideoMeeting2, retrievedGathering.IsVideoGathering);
+            Assert.AreEqual(videoCallLink2, retrievedGathering.VideoCallLink);
+
+            string gatheringId = retrievedGathering.Id;
+            // Delete the Gathering
+            var deleteResult = gatheringRepository.Delete(gatheringId);
             Assert.IsTrue(deleteResult);
 
-            retrievedCar = carRepository.GetInstance(car.Id);
-            Assert.IsNull(retrievedCar);
+            var retrievedGathering2 = gatheringRepository.GetInstance(gatheringId);
+            Assert.IsNull(retrievedGathering2);
         }
 
+        
         [Test]
-        public void GetAllCarsTest_ChecksIfAllTheCarsStoredInTheDatabaseAreRetrievedAsExpected_VerifiesByTheReturnedValue()
+        public void GetAllCGatheringsTest_ChecksIfAllTheGatheringsStoredInTheDatabaseAreRetrievedAsExpected_VerifiesByTheReturnedValue()
         {
             // Get the repository to perform operations
-            var carRepository = _kernel.Get<ICarRepository>();
-            Assert.IsNotNull(carRepository);
-            // Prepare some data to test
-            // Car # 1
-            string name = "SL 500";
-            string company = "Mercedes";
-            string modelYear = "2014";
-            string ownerEmail = "mercedes@123456-7.com";
-            Gathering car = new Gathering(name, company, modelYear, ownerEmail);
-            carRepository.Add(car);
+            // Gathering # 1
+            var gatheringRepository = _kernel.Get<IGatheringRepository>();
+            Assert.IsNotNull(gatheringRepository);
+            string title = "Painters Get Around";
+            string description = "We painters are a different lot";
+            DateTime dateOfMeeting = DateTime.Now.AddDays(9).Date;
+            string organizerEmail = "thisisit@123456789-0.com";
+            string topic = Gathering.AllTopics()[0];
+            Location location = new Location(23.45M, 73.31M, "F-6, Islamabad, Pakistan");
+            string venue = "Chaye Khana";
+            bool isVideoMeeting = false;
+            string videoCallLink = null;
 
-            // Car # 2
-            string name2 = "SL 502";
-            string company2 = "Mercedes 2";
-            string modelYear2 = "2016";
-            string ownerEmail2 = "mercedes2@123456-7.com";
-            Gathering car2 = new Gathering(name2, company2, modelYear2, ownerEmail2);
-            carRepository.Add(car2);
+            var gathering = new Gathering.GatheringBuilder().Title(title).Description(description).DateOfMeeting(dateOfMeeting)
+                .OrganizerEmail(organizerEmail).Topic(topic).Location(location).Venue(venue)
+                .IsVideoGathering(isVideoMeeting).VideoCallLink(videoCallLink).Build();
+            gatheringRepository.Add(gathering);
 
-            // Car # 3
-            string name3 = "SL 503";
-            string company3 = "Mercedes 3";
-            string modelYear3 = "2017";
-            string ownerEmail3 = "mercedes3@123456-7.com";
-            Gathering car3 = new Gathering(name3, company3, modelYear3, ownerEmail3);
-            carRepository.Add(car3);
+            // Gathering # 2
+            string title2 = "Painters Get Around 2 ";
+            string description2 = "We painters are a different lot 2";
+            DateTime dateOfMeeting2 = DateTime.Now.AddDays(10).Date;
+            string organizerEmail2 = "thisisit@123456789-2.com";
+            string topic2 = Gathering.AllTopics()[1];
+            Location location2 = new Location(23.41M, 73.39M, "F-7, Islamabad, Pakistan");
+            string venue2 = "Attrio Cafe";
+            bool isVideoMeeting2 = true;
+            string videoCallLink2 = "https://dummygooglemeet.com/12343767docvnwb20t585jhetycghwrffgffd";
 
-            // Car # 4
-            string name4 = "SL 504";
-            string company4 = "Mercedes 4";
-            string modelYear4 = "2016";
-            string ownerEmail4 = "mercedes4@123456-7.com";
-            Gathering car4 = new Gathering(name4, company4, modelYear4, ownerEmail4);
-            carRepository.Add(car4);
+            var gathering2 = new Gathering.GatheringBuilder().Title(title2).Description(description2)
+                .DateOfMeeting(dateOfMeeting2).OrganizerEmail(organizerEmail2).Topic(topic2).Location(location2)
+                .Venue(venue2).IsVideoGathering(isVideoMeeting2).VideoCallLink(videoCallLink2)
+                .Build();
+            gatheringRepository.Add(gathering2);
 
-            // Retrieve the cars
-            var retrievedCar = carRepository.GetAllInstances();
-            Assert.IsNotNull(retrievedCar);
-            // Verify Car # 1
-            Assert.AreEqual(4, retrievedCar.Count);
-            Assert.AreEqual(name, retrievedCar[0].Title);
-            Assert.AreEqual(company, retrievedCar[0].Description);
-            Assert.AreEqual(modelYear, retrievedCar[0].DateOfMeeting);
-            Assert.AreEqual(ownerEmail, retrievedCar[0].OrganizerEmail);
+            // Gathering # 3
+            string title3 = "Painters Get Around 3";
+            string description3 = "We painters are a different lot 3";
+            DateTime dateOfMeeting3 = DateTime.Now.AddDays(8).Date;
+            string organizerEmail3 = "thisisit@123456789-3.com";
+            string topic3 = Gathering.AllTopics()[2];
+            Location location3 = new Location(23.57M, 73.43M, "F-8, Islamabad, Pakistan");
+            string venue3 = "Pizza Hut";
+            bool isVideoMeeting3 = true;
+            string videoCallLink3 = "https://dummygooglemeet.com/12343767docvnwb20t585jhetycghwrf6654323d";
 
-            // Verify Car # 2
-            Assert.AreEqual(name2, retrievedCar[1].Title);
-            Assert.AreEqual(company2, retrievedCar[1].Description);
-            Assert.AreEqual(modelYear2, retrievedCar[1].DateOfMeeting);
-            Assert.AreEqual(ownerEmail2, retrievedCar[1].OrganizerEmail);
+            var gathering3 = new Gathering.GatheringBuilder().Title(title3).Description(description3)
+                .DateOfMeeting(dateOfMeeting3).OrganizerEmail(organizerEmail3).Topic(topic3).Location(location3)
+                .Venue(venue3).IsVideoGathering(isVideoMeeting3).VideoCallLink(videoCallLink3)
+                .Build();
+            gatheringRepository.Add(gathering3);
 
-            // Verify Car # 3
-            Assert.AreEqual(name3, retrievedCar[2].Title);
-            Assert.AreEqual(company3, retrievedCar[2].Description);
-            Assert.AreEqual(modelYear3, retrievedCar[2].DateOfMeeting);
-            Assert.AreEqual(ownerEmail3, retrievedCar[2].OrganizerEmail);
+            // Gathering # 4
+            string title4 = "Painters Get Around 4";
+            string description4 = "We painters are a different lot 4";
+            DateTime dateOfMeeting4 = DateTime.Now.AddDays(12).Date;
+            string organizerEmail4 = "thisisit@123456789-4.com";
+            string topic4 = Gathering.AllTopics()[3];
+            Location location4 = new Location(23.97M, 73.73M, "F-9, Islamabad, Pakistan");
+            string venue4 = "Fatima Jinnah Park";
+            bool isVideoMeeting4 = false;
+            string videoCallLink4 = "";
 
-            // Verify Car # 4
-            Assert.AreEqual(name4, retrievedCar[3].Title);
-            Assert.AreEqual(company4, retrievedCar[3].Description);
-            Assert.AreEqual(modelYear4, retrievedCar[3].DateOfMeeting);
-            Assert.AreEqual(ownerEmail4, retrievedCar[3].OrganizerEmail);
+            var gathering4 = new Gathering.GatheringBuilder().Title(title4).Description(description4)
+                .DateOfMeeting(dateOfMeeting4).OrganizerEmail(organizerEmail4).Topic(topic4).Location(location4)
+                .Venue(venue4).IsVideoGathering(isVideoMeeting4).VideoCallLink(videoCallLink4)
+                .Build();
+            gatheringRepository.Add(gathering4);
+
+            // Retrieve the Gathering
+            var retrievedGatherings = gatheringRepository.GetAllInstances();
+            Assert.IsNotNull(retrievedGatherings);
+
+            // Verify Gathering # 1
+            Assert.AreEqual(title, retrievedGatherings[0].Title);
+            Assert.AreEqual(description, retrievedGatherings[0].Description);
+            Assert.AreEqual(dateOfMeeting, retrievedGatherings[0].DateOfMeeting);
+            Assert.AreEqual(organizerEmail, retrievedGatherings[0].OrganizerEmail);
+            Assert.AreEqual(topic, retrievedGatherings[0].Topic);
+            Assert.IsNotNull(retrievedGatherings[0].Location);
+            Assert.AreEqual(location.Latitude, retrievedGatherings[0].Location.Latitude);
+            Assert.AreEqual(location.Longitude, retrievedGatherings[0].Location.Longitude);
+            Assert.AreEqual(location.Area, retrievedGatherings[0].Location.Area);
+            Assert.AreEqual(venue, retrievedGatherings[0].Venue);
+            Assert.AreEqual(isVideoMeeting, retrievedGatherings[0].IsVideoGathering);
+            Assert.IsTrue(string.IsNullOrEmpty(retrievedGatherings[0].VideoCallLink));
+
+            // Verify Gathering # 2
+            Assert.AreEqual(title2, retrievedGatherings[1].Title);
+            Assert.AreEqual(description2, retrievedGatherings[1].Description);
+            Assert.AreEqual(dateOfMeeting2, retrievedGatherings[1].DateOfMeeting);
+            Assert.AreEqual(organizerEmail2, retrievedGatherings[1].OrganizerEmail);
+            Assert.AreEqual(topic2, retrievedGatherings[1].Topic);
+            Assert.IsNotNull(retrievedGatherings[1].Location);
+            Assert.AreEqual(location2.Latitude, retrievedGatherings[1].Location.Latitude);
+            Assert.AreEqual(location2.Longitude, retrievedGatherings[1].Location.Longitude);
+            Assert.AreEqual(location2.Area, retrievedGatherings[1].Location.Area);
+            Assert.AreEqual(venue2, retrievedGatherings[1].Venue);
+            Assert.AreEqual(isVideoMeeting2, retrievedGatherings[1].IsVideoGathering);
+            Assert.IsFalse(string.IsNullOrEmpty(retrievedGatherings[1].VideoCallLink));
+
+            // Verify Gathering # 3
+            Assert.AreEqual(title3, retrievedGatherings[2].Title);
+            Assert.AreEqual(description3, retrievedGatherings[2].Description);
+            Assert.AreEqual(dateOfMeeting3, retrievedGatherings[2].DateOfMeeting);
+            Assert.AreEqual(organizerEmail3, retrievedGatherings[2].OrganizerEmail);
+            Assert.AreEqual(topic3, retrievedGatherings[2].Topic);
+            Assert.IsNotNull(retrievedGatherings[2].Location);
+            Assert.AreEqual(location3.Latitude, retrievedGatherings[2].Location.Latitude);
+            Assert.AreEqual(location3.Longitude, retrievedGatherings[2].Location.Longitude);
+            Assert.AreEqual(location3.Area, retrievedGatherings[2].Location.Area);
+            Assert.AreEqual(venue3, retrievedGatherings[2].Venue);
+            Assert.AreEqual(isVideoMeeting3, retrievedGatherings[2].IsVideoGathering);
+            Assert.IsFalse(string.IsNullOrEmpty(retrievedGatherings[2].VideoCallLink));
+
+            // Verify Gathering # 4
+            Assert.AreEqual(title4, retrievedGatherings[3].Title);
+            Assert.AreEqual(description4, retrievedGatherings[3].Description);
+            Assert.AreEqual(dateOfMeeting4, retrievedGatherings[3].DateOfMeeting);
+            Assert.AreEqual(organizerEmail4, retrievedGatherings[3].OrganizerEmail);
+            Assert.AreEqual(topic4, retrievedGatherings[3].Topic);
+            Assert.IsNotNull(retrievedGatherings[3].Location);
+            Assert.AreEqual(location4.Latitude, retrievedGatherings[3].Location.Latitude);
+            Assert.AreEqual(location4.Longitude, retrievedGatherings[3].Location.Longitude);
+            Assert.AreEqual(location4.Area, retrievedGatherings[3].Location.Area);
+            Assert.AreEqual(venue4, retrievedGatherings[3].Venue);
+            Assert.AreEqual(isVideoMeeting4, retrievedGatherings[3].IsVideoGathering);
+            Assert.IsTrue(string.IsNullOrEmpty(retrievedGatherings[3].VideoCallLink));
         }
-
+        
         [Test]
-        public void GetAllCarsByEmailTest_ChecksIfAllTheCarsStoredInTheDatabaseWithASpecificEmailAreRetrievedAsExpected_VerifiesByTheReturnedValue()
+        public void GetAllGatheringsByEmailTest_ChecksIfAllTheGatheringsStoredInTheDatabaseWithASpecificEmailAreRetrievedAsExpected_VerifiesByTheReturnedValue()
         {
             // Get the repository to perform operations
-            var carRepository = _kernel.Get<ICarRepository>();
-            Assert.IsNotNull(carRepository);
-            // Prepare some data to test
-            // Car # 1
-            string name = "SL 500";
-            string company = "Mercedes";
-            string modelYear = "2014";
-            string ownerEmail = "mercedes@123456-7.com";
-            Gathering car = new Gathering(name, company, modelYear, ownerEmail);
-            carRepository.Add(car);
+            // Gathering # 1
+            var gatheringRepository = _kernel.Get<IGatheringRepository>();
+            Assert.IsNotNull(gatheringRepository);
+            string title = "Painters Get Around";
+            string description = "We painters are a different lot";
+            DateTime dateOfMeeting = DateTime.Now.AddDays(9).Date;
+            string organizerEmail = "thisisit@123456789-0.com";
+            string topic = Gathering.AllTopics()[0];
+            Location location = new Location(23.45M, 73.31M, "F-6, Islamabad, Pakistan");
+            string venue = "Chaye Khana";
+            bool isVideoMeeting = false;
+            string videoCallLink = null;
 
-            // Car # 2
-            string name2 = "SL 502";
-            string company2 = "Mercedes 2";
-            string modelYear2 = "2016";
-            string ownerEmail2 = "mercedes@123456-7.com";
-            Gathering car2 = new Gathering(name2, company2, modelYear2, ownerEmail2);
-            carRepository.Add(car2);
+            var gathering = new Gathering.GatheringBuilder().Title(title).Description(description).DateOfMeeting(dateOfMeeting)
+                .OrganizerEmail(organizerEmail).Topic(topic).Location(location).Venue(venue)
+                .IsVideoGathering(isVideoMeeting).VideoCallLink(videoCallLink).Build();
+            gatheringRepository.Add(gathering);
 
-            // Car # 3
-            string name3 = "SL 503";
-            string company3 = "Mercedes 3";
-            string modelYear3 = "2017";
-            string ownerEmail3 = "mercedes3@123456-7.com";
-            Gathering car3 = new Gathering(name3, company3, modelYear3, ownerEmail3);
-            carRepository.Add(car3);
+            // Gathering # 2
+            string title2 = "Painters Get Around 2 ";
+            string description2 = "We painters are a different lot 2";
+            DateTime dateOfMeeting2 = DateTime.Now.AddDays(10).Date;
+            string organizerEmail2 = "thisisit@123456789-0.com";
+            string topic2 = Gathering.AllTopics()[1];
+            Location location2 = new Location(23.41M, 73.39M, "F-7, Islamabad, Pakistan");
+            string venue2 = "Attrio Cafe";
+            bool isVideoMeeting2 = true;
+            string videoCallLink2 = "https://dummygooglemeet.com/12343767docvnwb20t585jhetycghwrffgffd";
 
-            // Car # 4
-            string name4 = "SL 504";
-            string company4 = "Mercedes 4";
-            string modelYear4 = "2016";
-            string ownerEmail4 = "mercedes@123456-7.com";
-            Gathering car4 = new Gathering(name4, company4, modelYear4, ownerEmail4);
-            carRepository.Add(car4);
+            var gathering2 = new Gathering.GatheringBuilder().Title(title2).Description(description2)
+                .DateOfMeeting(dateOfMeeting2).OrganizerEmail(organizerEmail2).Topic(topic2).Location(location2)
+                .Venue(venue2).IsVideoGathering(isVideoMeeting2).VideoCallLink(videoCallLink2)
+                .Build();
+            gatheringRepository.Add(gathering2);
 
-            // Retrieve the cars by the email that is saved with 3 cars out of the above 4
-            var retrievedCar = carRepository.GetAllCarByEmail(ownerEmail);
-            Assert.IsNotNull(retrievedCar);
-            // Verify Car # 1
-            Assert.AreEqual(3, retrievedCar.Count);
-            Assert.AreEqual(name, retrievedCar[0].Title);
-            Assert.AreEqual(company, retrievedCar[0].Description);
-            Assert.AreEqual(modelYear, retrievedCar[0].DateOfMeeting);
-            Assert.AreEqual(ownerEmail, retrievedCar[0].OrganizerEmail);
+            // Gathering # 3
+            string title3 = "Painters Get Around 3";
+            string description3 = "We painters are a different lot 3";
+            DateTime dateOfMeeting3 = DateTime.Now.AddDays(8).Date;
+            string organizerEmail3 = "thisisit@123456789-3.com";
+            string topic3 = Gathering.AllTopics()[2];
+            Location location3 = new Location(23.57M, 73.43M, "F-8, Islamabad, Pakistan");
+            string venue3 = "Pizza Hut";
+            bool isVideoMeeting3 = true;
+            string videoCallLink3 = "https://dummygooglemeet.com/12343767docvnwb20t585jhetycghwrf6654323d";
 
-            // Verify Car # 2
-            Assert.AreEqual(name2, retrievedCar[1].Title);
-            Assert.AreEqual(company2, retrievedCar[1].Description);
-            Assert.AreEqual(modelYear2, retrievedCar[1].DateOfMeeting);
-            Assert.AreEqual(ownerEmail2, retrievedCar[1].OrganizerEmail);
+            var gathering3 = new Gathering.GatheringBuilder().Title(title3).Description(description3)
+                .DateOfMeeting(dateOfMeeting3).OrganizerEmail(organizerEmail3).Topic(topic3).Location(location3)
+                .Venue(venue3).IsVideoGathering(isVideoMeeting3).VideoCallLink(videoCallLink3)
+                .Build();
+            gatheringRepository.Add(gathering3);
 
-            // Verify Car # 4
-            Assert.AreEqual(name4, retrievedCar[2].Title);
-            Assert.AreEqual(company4, retrievedCar[2].Description);
-            Assert.AreEqual(modelYear4, retrievedCar[2].DateOfMeeting);
-            Assert.AreEqual(ownerEmail4, retrievedCar[2].OrganizerEmail);
+            // Gathering # 4
+            string title4 = "Painters Get Around 4";
+            string description4 = "We painters are a different lot 4";
+            DateTime dateOfMeeting4 = DateTime.Now.AddDays(12).Date;
+            string organizerEmail4 = "thisisit@123456789-0.com";
+            string topic4 = Gathering.AllTopics()[3];
+            Location location4 = new Location(23.97M, 73.73M, "F-9, Islamabad, Pakistan");
+            string venue4 = "Fatima Jinnah Park";
+            bool isVideoMeeting4 = false;
+            string videoCallLink4 = "";
+
+            var gathering4 = new Gathering.GatheringBuilder().Title(title4).Description(description4)
+                .DateOfMeeting(dateOfMeeting4).OrganizerEmail(organizerEmail4).Topic(topic4).Location(location4)
+                .Venue(venue4).IsVideoGathering(isVideoMeeting4).VideoCallLink(videoCallLink4)
+                .Build();
+            gatheringRepository.Add(gathering4);
+
+            // Retrieve the Gathering
+            var retrievedGatherings = gatheringRepository.GetAllGatheringsByEmail(organizerEmail);
+            Assert.IsNotNull(retrievedGatherings);
+
+            // Verify Gathering # 1
+            Assert.AreEqual(title, retrievedGatherings[0].Title);
+            Assert.AreEqual(description, retrievedGatherings[0].Description);
+            Assert.AreEqual(dateOfMeeting, retrievedGatherings[0].DateOfMeeting);
+            Assert.AreEqual(organizerEmail, retrievedGatherings[0].OrganizerEmail);
+            Assert.AreEqual(topic, retrievedGatherings[0].Topic);
+            Assert.IsNotNull(retrievedGatherings[0].Location);
+            Assert.AreEqual(location.Latitude, retrievedGatherings[0].Location.Latitude);
+            Assert.AreEqual(location.Longitude, retrievedGatherings[0].Location.Longitude);
+            Assert.AreEqual(location.Area, retrievedGatherings[0].Location.Area);
+            Assert.AreEqual(venue, retrievedGatherings[0].Venue);
+            Assert.AreEqual(isVideoMeeting, retrievedGatherings[0].IsVideoGathering);
+            Assert.IsTrue(string.IsNullOrEmpty(retrievedGatherings[0].VideoCallLink));
+
+            // Verify Gathering # 2
+            Assert.AreEqual(title2, retrievedGatherings[1].Title);
+            Assert.AreEqual(description2, retrievedGatherings[1].Description);
+            Assert.AreEqual(dateOfMeeting2, retrievedGatherings[1].DateOfMeeting);
+            Assert.AreEqual(organizerEmail2, retrievedGatherings[1].OrganizerEmail);
+            Assert.AreEqual(topic2, retrievedGatherings[1].Topic);
+            Assert.IsNotNull(retrievedGatherings[1].Location);
+            Assert.AreEqual(location2.Latitude, retrievedGatherings[1].Location.Latitude);
+            Assert.AreEqual(location2.Longitude, retrievedGatherings[1].Location.Longitude);
+            Assert.AreEqual(location2.Area, retrievedGatherings[1].Location.Area);
+            Assert.AreEqual(venue2, retrievedGatherings[1].Venue);
+            Assert.AreEqual(isVideoMeeting2, retrievedGatherings[1].IsVideoGathering);
+            Assert.IsFalse(string.IsNullOrEmpty(retrievedGatherings[1].VideoCallLink));
+            
+            // Verify Gathering # 4
+            Assert.AreEqual(title4, retrievedGatherings[2].Title);
+            Assert.AreEqual(description4, retrievedGatherings[2].Description);
+            Assert.AreEqual(dateOfMeeting4, retrievedGatherings[2].DateOfMeeting);
+            Assert.AreEqual(organizerEmail4, retrievedGatherings[2].OrganizerEmail);
+            Assert.AreEqual(topic4, retrievedGatherings[2].Topic);
+            Assert.IsNotNull(retrievedGatherings[2].Location);
+            Assert.AreEqual(location4.Latitude, retrievedGatherings[2].Location.Latitude);
+            Assert.AreEqual(location4.Longitude, retrievedGatherings[2].Location.Longitude);
+            Assert.AreEqual(location4.Area, retrievedGatherings[2].Location.Area);
+            Assert.AreEqual(venue4, retrievedGatherings[2].Venue);
+            Assert.AreEqual(isVideoMeeting4, retrievedGatherings[2].IsVideoGathering);
+            Assert.IsTrue(string.IsNullOrEmpty(retrievedGatherings[2].VideoCallLink));
         }
     }
 }

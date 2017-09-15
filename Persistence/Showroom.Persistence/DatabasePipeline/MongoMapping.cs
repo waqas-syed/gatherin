@@ -1,6 +1,7 @@
 ﻿using Gatherin.Domain.Model;
 using Gatherin.Domain.Model.GatherinAggregate;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace Gatherin.Persistence.DatabasePipeline
 {
@@ -18,12 +19,12 @@ namespace Gatherin.Persistence.DatabasePipeline
         {
             if (!_areMappingsRegistered)
             {
-                BsonClassMap.RegisterClassMap<Gathering>(cm =>
+                /*BsonClassMap.RegisterClassMap<Gathering>(cm =>
                 {
                     cm.AutoMap();
-                    cm.MapIdMember(c => c.Id); //.SetIdGenerator(CombGuidGenerator.Instance);
+                    cm.MapIdMember(c => c.Id).SetIdGenerator();
                 });
-                _areMappingsRegistered = true;
+                _areMappingsRegistered = true;*/
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Gatherin.Common;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 
@@ -97,7 +98,12 @@ namespace Gatherin.Domain.Model.GatherinAggregate
         /// <summary>
         /// Id for the gathring
         /// </summary>
-        public string Id { get { return _id; } }
+        [BsonId]
+        //[BsonRepresentation(BsonType.String)]
+        public string Id {
+            get { return _id; }
+            private set{ _id = value;}
+        }
 
         /// <summary>
         /// Name of the gathering
@@ -123,6 +129,7 @@ namespace Gatherin.Domain.Model.GatherinAggregate
         /// <summary>
         /// When the eeting would take place
         /// </summary>
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime DateOfMeeting { get { return _dateOfMeeting; }
             private set
             {

@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
-using Gatherin.Domain.Model;
-using Gatherin.Domain.Model.GatherinAggregate;
+﻿using Gatherin.Domain.Model.GatherinAggregate;
 using Gatherin.Persistence.DatabasePipeline;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Collections.Generic;
 
 namespace Gatherin.Persistence.Repositories
 {
-    public class CarsRepository : ICarRepository
+    public class GatheringRepository : IGatheringRepository
     {
         private IMongoCollection<Gathering> _mongoCollection;
 
-        public CarsRepository(IMongoConfiguration configuration)
+        public GatheringRepository(IMongoConfiguration configuration)
         {
             _mongoCollection = configuration.MongoDatabase.GetCollection<Gathering>(typeof(Gathering).Name);
         }
@@ -32,12 +31,19 @@ namespace Gatherin.Persistence.Repositories
         /// <returns></returns>
         public bool Update(Gathering instance)
         {
-            var filter = Builders<Gathering>.Filter.Eq("Id", instance.Id);
+            var filter = Builders<Gathering>.Filter.Eq(x => x.Id, instance.Id);
             var update = Builders<Gathering>.Update
-                .Set("Name", instance.Title)
-                .Set("Company", instance.Description)
-                .Set("ModelYear", instance.DateOfMeeting)
-                .Set("OwnerEmail", instance.OrganizerEmail);
+                .Set(x => x.Title, instance.Title)
+                .Set(x => x.Description, instance.Description)
+                .Set(x => x.DateOfMeeting, instance.DateOfMeeting)
+                .Set(x => x.OrganizerEmail, instance.OrganizerEmail)
+                .Set(x => x.Topic, instance.Topic)
+                .Set(x => x.Venue, instance.Venue)
+                .Set(x => x.IsVideoGathering, instance.IsVideoGathering)
+                .Set(x => x.VideoCallLink, instance.VideoCallLink)
+                .Set(x => x.Location.Latitude, instance.Location.Latitude)
+                .Set(x => x.Location.Longitude, instance.Location.Longitude)
+                .Set(x => x.Location.Area, instance.Location.Area);
             UpdateResult result = _mongoCollection.UpdateOne(filter, update);
             return result.ModifiedCount == 1;
         }
@@ -49,7 +55,7 @@ namespace Gatherin.Persistence.Repositories
         /// <returns></returns>
         public bool Delete(string id)
         {
-            var filter = Builders<Gathering>.Filter.Eq("Id", id);
+            var filter = Builders<Gathering>.Filter.Eq(x => x.Id, id);
             var deleteResult = _mongoCollection.DeleteOne(filter);
             return deleteResult.DeletedCount == 1;
         }
@@ -78,9 +84,9 @@ namespace Gatherin.Persistence.Repositories
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public IList<Gathering> GetAllCarByEmail(string email)
+        public IList<Gathering> GetAllGatheringsByEmail(string email)
         {
-            var filter = Builders<Gathering>.Filter.Eq("OwnerEmail", email);
+            var filter = Builders<Gathering>.Filter.Eq(x => x.OrganizerEmail, email);
             return _mongoCollection.Find(filter).ToList();
         }
     }

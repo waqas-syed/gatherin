@@ -15,7 +15,7 @@ namespace Gatherin.Persistence.Ninject
         public override void Load()
         {
             Bind<IMongoConfiguration>().To<MongoConfiguration>().InSingletonScope();
-            Bind<ICarRepository>().To<CarsRepository>().InTransientScope();
+            Bind<IGatheringRepository>().To<GatheringRepository>().InTransientScope();
         }
     }
 }
