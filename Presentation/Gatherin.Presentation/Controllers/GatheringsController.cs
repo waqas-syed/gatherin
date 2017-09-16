@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Gatherin.Presentation.ViewModels;
 using Gatherin.Services;
 
 namespace Gatherin.Presentation.Controllers
@@ -41,7 +42,7 @@ namespace Gatherin.Presentation.Controllers
 
         // POST: Gatherings/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CreateGatheringFormModel collection)
         {
             try
             {

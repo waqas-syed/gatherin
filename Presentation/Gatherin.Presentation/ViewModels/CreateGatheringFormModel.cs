@@ -9,6 +9,14 @@ namespace Gatherin.Presentation.ViewModels
     public class CreateGatheringFormModel
     {
         /// <summary>
+        /// Default Constructor
+        /// </summary>
+        public CreateGatheringFormModel()
+        {
+            
+        }
+
+        /// <summary>
         /// Create a new gathering
         /// </summary>
         /// <param name="title"></param>

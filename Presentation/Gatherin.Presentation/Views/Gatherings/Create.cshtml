@@ -1,8 +1,31 @@
-﻿
+﻿@using System.Web.UI.WebControls
+@model Gatherin.Presentation.ViewModels.CreateGatheringFormModel
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Create</h2>
-
+@using(@Html.BeginForm("Create", "Gatherings", FormMethod.Post, new { @class = "form-inline"}))
+{
+    //@Html.Hidden("CategoryId", category.Id)
+    <!--<div class="form-group">
+        <label class="=sr-only" for="file">File</label>
+        <input type="file" class="form-control" name ="file" placeholder="Select File"/>
+    </div>-->
+    <div class="form-group">
+        @Html.LabelFor(x => x.Title)
+        @Html.EditorFor(x => x.Title, new {htmlAttributes = new { @class="form-control", PlaceHolder = "Title of Gathering" }})
+        <!--<label class="=sr-only" for="Title">Title</label>
+        <input type="text" class="form-control" name="title" placeholder="Name"/>-->
+    </div>
+    <div class="form-group">
+        <label class="=sr-only" for="Description">Description</label>
+        <input type="text" class="form-control" name="description" placeholder="Description" />
+    </div>
+    <div class="form-group">
+        <label class="=sr-only" for="Area">Area</label>
+        <input type="text" class="form-control" name="area" placeholder="Area" />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+}
