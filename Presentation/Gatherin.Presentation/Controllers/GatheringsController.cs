@@ -11,6 +11,15 @@ namespace Gatherin.Presentation.Controllers
     {
         private IGatheringService _gatheringService;
 
+        /// <summary>
+        /// Initialize the Gatherings controller
+        /// </summary>
+        /// <param name="gatheringService"></param>
+        public GatheringsController(IGatheringService gatheringService)
+        {
+            _gatheringService = gatheringService;
+        }
+
         // GET: Gatherings
         public ActionResult Index()
         {
