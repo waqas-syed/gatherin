@@ -188,6 +188,7 @@
   <ItemGroup>
     <Compile Include="App_Start\ApplicationIdentityContext.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\EnsureAuthIndexes.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -279,6 +280,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Showroom.Common\Gatherin.Common.csproj">
+      <Project>{d34b3a22-c64c-40c5-b49a-93b51646ce40}</Project>
+      <Name>Gatherin.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Domain.Model\Showroom.Domain.Model\Gatherin.Domain.Model.csproj">
+      <Project>{8ce0fc6f-ac46-4f08-81c4-8fd6d3d0c9ae}</Project>
+      <Name>Gatherin.Domain.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Persistence\Showroom.Persistence\Gatherin.Persistence.csproj">
+      <Project>{eb8ec4f9-c2df-4a2f-9aea-65d1294fe3a1}</Project>
+      <Name>Gatherin.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\Showroom.Services\Gatherin.Services.csproj">
+      <Project>{9c3b2c8f-a017-45aa-a2d5-435eaf6f8d4a}</Project>
+      <Name>Gatherin.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

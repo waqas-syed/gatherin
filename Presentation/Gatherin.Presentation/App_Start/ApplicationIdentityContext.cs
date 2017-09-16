@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using AspNet.Identity.MongoDB;
+using Gatherin.Common;
 using Gatherin.Presentation.Models;
 using MongoDB.Driver;
 
-namespace Gatherin.Presentation.App_Start
+namespace Gatherin.Presentation
 {
     public class ApplicationIdentityContext : IDisposable
     {
         public static ApplicationIdentityContext Create()
         {
-            // todo add settings where appropriate to switch server & database in your own application
-            var client = new MongoClient("mongodb://localhost:27017");
-            var database = client.GetDatabase("mydb");
+            var client = new MongoClient(Constants.MongoServer);
+            var database = client.GetDatabase(Constants.MongoDatabase);
             var users = database.GetCollection<ApplicationUser>("users");
             var roles = database.GetCollection<IdentityRole>("roles");
             return new ApplicationIdentityContext(users, roles);
