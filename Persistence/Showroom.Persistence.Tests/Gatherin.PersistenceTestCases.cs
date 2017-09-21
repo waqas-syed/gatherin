@@ -9,8 +9,11 @@ using System;
 
 namespace Gatherin.Persistence.Tests
 {
+    /// <summary>
+    /// Persistence related tests
+    /// </summary>
     [TestFixture]
-    public class ShowroomPersistenceTestCases
+    public class GatherinPersistenceTestCases
     {
         private IKernel _kernel;
 
@@ -18,7 +21,7 @@ namespace Gatherin.Persistence.Tests
         public void Setup()
         {
             // Register the mappings between domain entities and MongoDB BSON documents to be stored
-            MongoMapping.Register();
+            //MongoMapping.Register();
             // Initialize Ninject to load dependencies
             _kernel = new StandardKernel();
             _kernel.Load<PersistenceNinjectModule>();

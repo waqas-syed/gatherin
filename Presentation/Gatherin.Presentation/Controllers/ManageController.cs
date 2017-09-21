@@ -10,22 +10,36 @@ using Gatherin.Presentation.Models;
 
 namespace Gatherin.Presentation.Controllers
 {
+    /// <summary>
+    /// For managing account of users
+    /// </summary>
     [Authorize]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        /// <summary>
+        /// Initialize
+        /// </summary>
         public ManageController()
         {
         }
 
+        /// <summary>
+        /// Initialize with user and sign in manager
+        /// </summary>
+        /// <param name="userManager"></param>
+        /// <param name="signInManager"></param>
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
         }
 
+        /// <summary>
+        /// Sign in Manager
+        /// </summary>
         public ApplicationSignInManager SignInManager
         {
             get
@@ -37,7 +51,10 @@ namespace Gatherin.Presentation.Controllers
                 _signInManager = value; 
             }
         }
-
+        
+        /// <summary>
+        /// User manager
+        /// </summary>
         public ApplicationUserManager UserManager
         {
             get
@@ -50,8 +67,11 @@ namespace Gatherin.Presentation.Controllers
             }
         }
 
-        //
-        // GET: /Manage/Index
+        /// <summary>
+        /// GET: /Manage/Index
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -75,8 +95,12 @@ namespace Gatherin.Presentation.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Manage/RemoveLogin
+        /// <summary>
+        /// POST: /Manage/RemoveLogin
+        /// </summary>
+        /// <param name="loginProvider"></param>
+        /// <param name="providerKey"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
@@ -99,15 +123,20 @@ namespace Gatherin.Presentation.Controllers
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
-        //
-        // GET: /Manage/AddPhoneNumber
+        /// <summary>
+        /// GET: /Manage/AddPhoneNumber
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AddPhoneNumber()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/AddPhoneNumber
+        /// <summary>
+        /// POST: /Manage/AddPhoneNumber
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
@@ -145,8 +174,10 @@ namespace Gatherin.Presentation.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
-        //
-        // POST: /Manage/DisableTwoFactorAuthentication
+        /// <summary>
+        /// POST: /Manage/DisableTwoFactorAuthentication
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
@@ -160,8 +191,11 @@ namespace Gatherin.Presentation.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
-        //
-        // GET: /Manage/VerifyPhoneNumber
+        /// <summary>
+        /// GET: /Manage/VerifyPhoneNumber
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        /// <returns></returns>
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
@@ -169,8 +203,11 @@ namespace Gatherin.Presentation.Controllers
             return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
 
-        //
-        // POST: /Manage/VerifyPhoneNumber
+        /// <summary>
+        /// POST: /Manage/VerifyPhoneNumber
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
@@ -194,8 +231,10 @@ namespace Gatherin.Presentation.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Manage/RemovePhoneNumber
+        /// <summary>
+        /// POST: /Manage/RemovePhoneNumber
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemovePhoneNumber()
@@ -213,15 +252,20 @@ namespace Gatherin.Presentation.Controllers
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
-        //
-        // GET: /Manage/ChangePassword
+        /// <summary>
+        /// GET: /Manage/ChangePassword
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ChangePassword()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/ChangePassword
+        /// <summary>
+        /// POST: /Manage/ChangePassword
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
@@ -244,15 +288,20 @@ namespace Gatherin.Presentation.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Manage/SetPassword
+        /// <summary>
+        /// GET: /Manage/SetPassword
+        /// </summary>
+        /// <returns></returns>
         public ActionResult SetPassword()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/SetPassword
+        /// <summary>
+        /// POST: /Manage/SetPassword
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
@@ -276,8 +325,11 @@ namespace Gatherin.Presentation.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Manage/ManageLogins
+        /// <summary>
+        /// GET: /Manage/ManageLogins
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -299,8 +351,11 @@ namespace Gatherin.Presentation.Controllers
             });
         }
 
-        //
-        // POST: /Manage/LinkLogin
+        /// <summary>
+        /// POST: /Manage/LinkLogin
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
@@ -309,8 +364,10 @@ namespace Gatherin.Presentation.Controllers
             return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
         }
 
-        //
-        // GET: /Manage/LinkLoginCallback
+        /// <summary>
+        /// GET: /Manage/LinkLoginCallback
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
@@ -322,6 +379,10 @@ namespace Gatherin.Presentation.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
+        /// <summary>
+        /// Dispose off the resources
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
@@ -333,7 +394,7 @@ namespace Gatherin.Presentation.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -384,6 +445,6 @@ namespace Gatherin.Presentation.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

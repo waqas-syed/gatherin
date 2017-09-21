@@ -19,17 +19,4 @@ namespace Gatherin.Domain.Model.GatherinAggregate
         public string Email { get; set; }
         //public IList<Gift> Gifts = new List<Gift>();
     }
-
-    // Sample code if the Attendees array had another array
-    /*public class Gift
-    {
-        public Gift(string name, decimal price)
-        {
-            Name = name;
-            Price = price;
-        }
-
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-    }*/
 }

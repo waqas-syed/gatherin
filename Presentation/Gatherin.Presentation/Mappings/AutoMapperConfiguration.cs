@@ -7,7 +7,10 @@ namespace Gatherin.Presentation.Mappings
     /// </summary>
     public class AutoMapperConfiguration
     {
-        public static void Confirue()
+        /// <summary>
+        /// Configure
+        /// </summary>
+        public static void Configure()
         {
             Mapper.Initialize(x =>
             {

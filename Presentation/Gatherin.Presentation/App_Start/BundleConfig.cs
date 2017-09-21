@@ -3,6 +3,9 @@ using System.Web.Optimization;
 
 namespace Gatherin.Presentation
 {
+    /// <summary>
+    /// Responsible for bundling stylesheets and scripts
+    /// </summary>
     public class BundleConfig
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862

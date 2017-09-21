@@ -1,4 +1,3 @@
-
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Gatherin.Presentation.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Gatherin.Presentation.App_Start.NinjectWebCommon), "Stop")]
 
@@ -11,9 +10,7 @@ namespace Gatherin.Presentation.App_Start
     using Gatherin.Persistence.Ninject;
     using Gatherin.Presentation.Ninject;
     using Gatherin.Services.Ninject;
-
-    //using Ninject;
-    //using Ninject.Web.Common;
+    
     using global::Ninject.Web.Common;
     using global::Ninject;
 

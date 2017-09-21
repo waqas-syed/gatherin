@@ -8,6 +8,9 @@ using System;
 
 namespace Gatherin.Presentation
 {
+    /// <summary>
+    /// Where the app fires up
+    /// </summary>
     public partial class Startup
     {
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864

@@ -6,7 +6,7 @@
 }
 
 <h2>Create</h2>
-@using(@Html.BeginForm("Create", "Gatherings", FormMethod.Post, new { @class = "form-inline"}))
+@using(@Html.BeginForm("Create", "Gatherings", FormMethod.Post, new { @class = "form"}))
 {
     //@Html.Hidden("CategoryId", category.Id)
     <!--<div class="form-group">
@@ -16,16 +16,37 @@
     <div class="form-group">
         @Html.LabelFor(x => x.Title)
         @Html.EditorFor(x => x.Title, new {htmlAttributes = new { @class="form-control", PlaceHolder = "Title of Gathering" }})
-        <!--<label class="=sr-only" for="Title">Title</label>
-        <input type="text" class="form-control" name="title" placeholder="Name"/>-->
     </div>
     <div class="form-group">
         <label class="=sr-only" for="Description">Description</label>
         <input type="text" class="form-control" name="description" placeholder="Description" />
     </div>
     <div class="form-group">
+        <label class="=sr-only" for="Latitude">Latitude</label>
+        <input type="text" class="form-control" name="latitude" placeholder="Latitude" />
+    </div>
+    <div class="form-group">
+        <label class="=sr-only" for="Longitude">Longitude</label>
+        <input type="text" class="form-control" name="longitude" placeholder="Longitude" />
+    </div>
+    <div class="form-group">
         <label class="=sr-only" for="Area">Area</label>
         <input type="text" class="form-control" name="area" placeholder="Area" />
     </div>
+    <div class="form-group input-group-sm">
+        @Html.LabelFor(model => model.DateOfMeeting)
+        @Html.TextBoxFor(model => model.DateOfMeeting, new { @class = "form-control datepicker", placeholder = "Enter Date to meet here" })
+        @Html.ValidationMessageFor(model => model.DateOfMeeting)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.IsVideoGathering)
+        @Html.CheckBoxFor(x => x.IsVideoGathering)
+    </div>
     <button type="submit" class="btn btn-primary">Upload</button>
 }
+
+<script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+        $('.datepicker').datepicker(); //Initialise any date pickers
+    });
+</script>

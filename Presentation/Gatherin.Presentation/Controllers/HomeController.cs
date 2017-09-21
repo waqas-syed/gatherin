@@ -6,13 +6,24 @@ using System.Web.Mvc;
 
 namespace Gatherin.Presentation.Controllers
 {
+    /// <summary>
+    /// Controls the operations for the landing page
+    /// </summary>
     public class HomeController : Controller
     {
+        /// <summary>
+        /// Index
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// About Page
+        /// </summary>
+        /// <returns></returns>
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -20,6 +31,10 @@ namespace Gatherin.Presentation.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Contact page
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

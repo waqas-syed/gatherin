@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Gatherin.Presentation.Models
 {
+    /// <summary>
+    /// For external login confirmation
+    /// </summary>
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
@@ -10,11 +13,17 @@ namespace Gatherin.Presentation.Models
         public string Email { get; set; }
     }
 
+    /// <summary>
+    /// For external logins list retrieval
+    /// </summary>
     public class ExternalLoginListViewModel
     {
         public string ReturnUrl { get; set; }
     }
 
+    /// <summary>
+    /// View Model for sending code
+    /// </summary>
     public class SendCodeViewModel
     {
         public string SelectedProvider { get; set; }
@@ -23,6 +32,9 @@ namespace Gatherin.Presentation.Models
         public bool RememberMe { get; set; }
     }
 
+    /// <summary>
+    /// For verifying sent code
+    /// </summary>
     public class VerifyCodeViewModel
     {
         [Required]
@@ -39,6 +51,9 @@ namespace Gatherin.Presentation.Models
         public bool RememberMe { get; set; }
     }
 
+    /// <summary>
+    /// Forgot password view model
+    /// </summary>
     public class ForgotViewModel
     {
         [Required]
@@ -46,6 +61,9 @@ namespace Gatherin.Presentation.Models
         public string Email { get; set; }
     }
 
+    /// <summary>
+    /// For login
+    /// </summary>
     public class LoginViewModel
     {
         [Required]
@@ -62,6 +80,9 @@ namespace Gatherin.Presentation.Models
         public bool RememberMe { get; set; }
     }
 
+    /// <summary>
+    /// For registration
+    /// </summary>
     public class RegisterViewModel
     {
         [Required]
@@ -81,6 +102,9 @@ namespace Gatherin.Presentation.Models
         public string ConfirmPassword { get; set; }
     }
 
+    /// <summary>
+    /// For password reset
+    /// </summary>
     public class ResetPasswordViewModel
     {
         [Required]
@@ -102,6 +126,9 @@ namespace Gatherin.Presentation.Models
         public string Code { get; set; }
     }
 
+    /// <summary>
+    /// Forgot password
+    /// </summary>
     public class ForgotPasswordViewModel
     {
         [Required]

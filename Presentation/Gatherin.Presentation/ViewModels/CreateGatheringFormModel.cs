@@ -40,19 +40,49 @@ namespace Gatherin.Presentation.ViewModels
             Longitude = longitude;
         }
 
+        /// <summary>
+        /// Title
+        /// </summary>
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "Title")]
         public string Title { get; set; }
+
+        /// <summary>
+        /// Description
+        /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// Date Of Meeting
+        /// </summary>
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "Date Of Meeting")]
         public DateTime DateOfMeeting { get; set; }
+
+        /// <summary>
+        /// Is this a video gathering
+        /// </summary>
         public bool IsVideoGathering { get; set; }
+
+        /// <summary>
+        /// Link to the video call that is taking place
+        /// </summary>
         public string VideoCallLink { get; set; }
+
+        /// <summary>
+        /// Area where this gathering will take place
+        /// </summary>
         [Required(AllowEmptyStrings = false)]
         public string Area { get; set; }
+
+        /// <summary>
+        /// Latitude of the location
+        /// </summary>
         public decimal Latitude { get; set; }
+
+        /// <summary>
+        /// Longitude of the location
+        /// </summary>
         public decimal Longitude { get; set; }
     }
 }

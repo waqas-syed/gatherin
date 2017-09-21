@@ -12,6 +12,9 @@ using Gatherin.Presentation.Models;
 
 namespace Gatherin.Presentation.Controllers
 {
+    /// <summary>
+    /// Account related operations manager, related to creating accounts and logging in
+    /// </summary>
     [Authorize]
     public class AccountController : Controller
     {

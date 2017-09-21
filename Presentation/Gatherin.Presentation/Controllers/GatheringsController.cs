@@ -8,6 +8,9 @@ using Gatherin.Services;
 
 namespace Gatherin.Presentation.Controllers
 {
+    /// <summary>
+    /// Handles the operations for gathering
+    /// </summary>
     public class GatheringsController : Controller
     {
         private IGatheringService _gatheringService;
@@ -21,26 +24,40 @@ namespace Gatherin.Presentation.Controllers
             _gatheringService = gatheringService;
         }
 
-        // GET: Gatherings
+        /// <summary>
+        /// GET: Gatherings
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             
             return View();
         }
 
-        // GET: Gatherings/Details/5
+        /// <summary>
+        /// GET: Gatherings/Details/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Gatherings/Create
+        /// <summary>
+        /// GET: Gatherings/Create
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Gatherings/Create
+        /// <summary>
+        /// POST: Gatherings/Create
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(CreateGatheringFormModel collection)
         {
@@ -56,13 +73,22 @@ namespace Gatherin.Presentation.Controllers
             }
         }
 
-        // GET: Gatherings/Edit/5
+        /// <summary>
+        /// GET: Gatherings/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Gatherings/Edit/5
+        /// <summary>
+        /// POST: Gatherings/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -78,13 +104,22 @@ namespace Gatherin.Presentation.Controllers
             }
         }
 
-        // GET: Gatherings/Delete/5
+        /// <summary>
+        /// GET: Gatherings/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Gatherings/Delete/5
+        /// <summary>
+        /// POST: Gatherings/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

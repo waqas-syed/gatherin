@@ -6,10 +6,17 @@ using System.Collections.Generic;
 
 namespace Gatherin.Persistence.Repositories
 {
+    /// <summary>
+    /// Gathering Repository
+    /// </summary>
     public class GatheringRepository : IGatheringRepository
     {
         private IMongoCollection<Gathering> _mongoCollection;
 
+        /// <summary>
+        /// Gathering repository
+        /// </summary>
+        /// <param name="configuration"></param>
         public GatheringRepository(IMongoConfiguration configuration)
         {
             _mongoCollection = configuration.MongoDatabase.GetCollection<Gathering>(typeof(Gathering).Name);

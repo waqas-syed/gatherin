@@ -11,6 +11,9 @@ using Gatherin.Presentation.Models;
 
 namespace Gatherin.Presentation
 {
+    /// <summary>
+    /// Email Service
+    /// </summary>
     public class EmailService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)
@@ -20,6 +23,9 @@ namespace Gatherin.Presentation
         }
     }
 
+    /// <summary>
+    /// Service for SMS
+    /// </summary>
     public class SmsService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)
@@ -29,7 +35,9 @@ namespace Gatherin.Presentation
         }
     }
 
-    // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
+    /// <summary>
+    /// Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
+    /// </summary>
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
@@ -85,7 +93,9 @@ namespace Gatherin.Presentation
         }
     }
 
-    // Configure the application sign-in manager which is used in this application.
+    /// <summary>
+    /// Configure the application sign-in manager which is used in this application.
+    /// </summary>
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)

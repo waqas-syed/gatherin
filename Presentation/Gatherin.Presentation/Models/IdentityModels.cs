@@ -5,9 +5,16 @@ using Microsoft.AspNet.Identity;
 
 namespace Gatherin.Presentation.Models
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+    /// <summary>
+    /// This will represent the actual user in the Identity pipeline
+    /// </summary>
     public class ApplicationUser : IdentityUser
     {
+        /// <summary>
+        /// Generate identity for the user
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <returns></returns>
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -16,17 +23,4 @@ namespace Gatherin.Presentation.Models
             return userIdentity;
         }
     }
-
-    /*public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-    }*/
 }
